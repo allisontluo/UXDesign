@@ -1,0 +1,14 @@
+AI usage summary — September 23, 2026
+
+1. User requested connection to https://github.com/allisontluo/UXDesign.git.
+   Assistant cloned the empty repository locally.
+2. User requested a website based on the Italian brainrot Wikipedia article, with a visible preview and design changes to follow.
+   Assistant read the source article and began a redesigned starter.
+3. User requested Java.
+   Assistant created a dependency-free Java 17 HTTP server with HTML/CSS browser pages.
+4. User supplied two assignment instruction photos and requested adherence.
+   Assistant read them, noted homepage/article/search/evaluation/accessibility/log requirements, and began expanding the starter. No reflection was written.
+5. User narrowed the request: no reflection, then just a copy of the website for now, then a homepage and that article page.
+   Assistant replaced the preliminary redesign with local Wikipedia homepage and Italian brainrot article copies, downloaded available assets, preserved attribution, linked the two pages, and opened a Java-served preview. Other Wikipedia features remain external links. The preliminary redesign is not part of the current repository output.
+
+This log summarizes AI use in this conversation only. No heuristic evaluation, accessibility audit, or personal reflection is claimed as complete.
