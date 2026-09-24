@@ -32,3 +32,9 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 14. User requested the original text size and improved grouping/aesthetics. Assistant restored 16px body type, added coordinated section spacing, a subtle contents panel, white reading surface, consistent image/caption styling, grouped character descriptions, and clearer homepage panels while retaining accessibility fixes.
 
 15. User requested a nicer font, an easy-to-read background, and text boxes. Assistant added a locally available Avenir Next/Segoe UI font stack, blue-gray page background, white section cards, coordinated heading colors, and pale character-description boxes. Body text remains 16px.
+
+16. User requested Times New Roman and additional colors. Assistant applied Times New Roman across both pages and added coordinated teal, blue, and gold accents, tinted section cards, and matching homepage headings while keeping the 16px reading size.
+
+17. User requested varied structures and box sizes. Assistant added asymmetric Origin/Description columns on wide screens, a compact side column for copyright/related information/notes beside Reception, varied character-box widths, and an inset external-links panel. Narrow screens retain a single reading column.
+
+18. User reported homepage content shifted to the right. Assistant scoped article-specific layout rules to the article page so shared Wikipedia element IDs no longer apply the article grid to the homepage.
