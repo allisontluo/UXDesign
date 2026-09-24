@@ -12,3 +12,23 @@ AI usage summary — September 23, 2026
    Assistant replaced the preliminary redesign with local Wikipedia homepage and Italian brainrot article copies, downloaded available assets, preserved attribution, linked the two pages, and opened a Java-served preview. Other Wikipedia features remain external links. The preliminary redesign is not part of the current repository output.
 
 This log summarizes AI use in this conversation only. No heuristic evaluation, accessibility audit, or personal reflection is claimed as complete.
+
+6. User supplied a WAVE screenshot flagging redundant title text on the Tung Tung Tung Sahur link and requested a fix. Assistant removed the duplicate title attribute from all three instances of that same link in the article, preserving link text and destinations.
+
+7. User requested the same WAVE redundant-title fix for World War II. Assistant removed its matching title attribute while preserving the visible link and destination.
+
+8. User supplied another screenshot with multiple redundant title warnings. Assistant removed 68 remaining article link titles that exactly duplicate their visible text, preserving descriptive titles and link destinations.
+
+9. User requested all redundant titles be fixed. Assistant checked both pages, removed 107 further titles matching text, image alt text, or aria-label, retained informative titles, and rescanned both HTML files with zero duplicate titles remaining under these checks. This is a targeted markup check, not a full WAVE audit.
+
+10. User supplied additional WAVE screenshots. Assistant checked local pages, confirmed English lang attributes and absence of appearance radios, added missing image alternatives and names to icon-only links, and darkened navigation-table links. Markup checks passed; chosen foreground/background contrast ratios exceed 4.5:1. A full WAVE audit has not been rerun.
+
+11. User requested that other articles not be linked. Assistant converted outgoing Wikipedia encyclopedia-article links on both pages to plain text, preserving local page links, citations, and image attribution links.
+
+12. User requested homepage search for Italian brainrot to open the local article. Assistant connected search forms to a Java search handler, added case/whitespace-insensitive matching, and provided a local no-match page.
+
+13. User requested a more visually accessible website and supplied WAVE error screenshots. Assistant added larger text, increased line spacing, a restrained reading width, responsive contents navigation, high-contrast links, prominent keyboard focus, a skip link, and a visible search label. Removed conflicting accesskey attributes and hid unused Wikipedia interface controls.
+
+14. User requested the original text size and improved grouping/aesthetics. Assistant restored 16px body type, added coordinated section spacing, a subtle contents panel, white reading surface, consistent image/caption styling, grouped character descriptions, and clearer homepage panels while retaining accessibility fixes.
+
+15. User requested a nicer font, an easy-to-read background, and text boxes. Assistant added a locally available Avenir Next/Segoe UI font stack, blue-gray page background, white section cards, coordinated heading colors, and pale character-description boxes. Body text remains 16px.
