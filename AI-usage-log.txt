@@ -38,3 +38,7 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 17. User requested varied structures and box sizes. Assistant added asymmetric Origin/Description columns on wide screens, a compact side column for copyright/related information/notes beside Reception, varied character-box widths, and an inset external-links panel. Narrow screens retain a single reading column.
 
 18. User reported homepage content shifted to the right. Assistant scoped article-specific layout rules to the article page so shared Wikipedia element IDs no longer apply the article grid to the homepage.
+
+19. User supplied WAVE reports with remaining alerts. Assistant shortened collage alternative text (names remain in caption), replaced repeated generic icon alternatives, removed empty noscript elements and duplicate skip navigation, made homepage statistics plain text, increased attribution text to 14px, and replaced the homepage video layout table with semantic blocks. Retained the video for manual media accessibility review.
+
+20. Follow-up WAVE review: increased inherited 9.6px footer text to 14px on both pages and removed duplicate footer Privacy Policy navigation, retaining the attribution link. Video remains for manual content review.

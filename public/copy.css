@@ -215,3 +215,11 @@ body { background: #e9f1f3; }
  .page-Italian_brainrot #mwfw > dl, .page-Italian_brainrot #mwfw > dl:nth-of-type(even), .page-Italian_brainrot #mwA90 { width: 100%; max-width: 100%; }
  .page-Italian_brainrot .mw-parser-output { gap: 16px; }
 }
+/* Readable supporting text and responsive media without layout tables. */
+.mw-body .navbox .navbar { font-size: 14px; }
+.featured-media { text-align: center; }
+.featured-media-block { margin: 16px 0; }
+.featured-media video { max-width: 100%; height: auto; }
+
+/* Keep attribution and footer navigation readable. */
+.mw-footer, .mw-footer li, .mw-footer a { font-size: 14px !important; line-height: 1.6; }
