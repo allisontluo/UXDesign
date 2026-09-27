@@ -223,3 +223,23 @@ body { background: #e9f1f3; }
 
 /* Keep attribution and footer navigation readable. */
 .mw-footer, .mw-footer li, .mw-footer a { font-size: 14px !important; line-height: 1.6; }
+
+/* Local help navigation and larger, separated citation targets. */
+.local-navigation { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; }
+.local-help-link { font-size: 16px; font-weight: bold; padding: 8px 12px; border: 1px solid #537f86; border-radius: 6px; text-underline-offset: 3px; }
+.mw-body sup.reference { white-space: nowrap; line-height: 1; }
+.mw-body sup.reference > a { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; min-width: 28px; min-height: 28px; margin-inline: 3px; padding: 3px 5px; font-size: 14px; line-height: 1.2; background: #edf4fa; border: 1px solid #a7bdcd; border-radius: 5px; }
+.mw-body sup.reference > a:hover { background: #dceaf5; border-color: #205d60; }
+.mw-body .reference-text, .mw-body li[id^="cite_note-"] { scroll-margin-top: 24px; }
+.mw-body li[id^="cite_note-"]:target { background: #fff3cf; outline: 2px solid #93732a; outline-offset: 4px; }
+.help-main { max-width: 850px; margin: 36px auto; padding: 0 24px 40px; font-size: 16px; line-height: 1.7; }
+.help-main h1 { color: #205d60; font-size: 2rem; }
+.help-card { background: white; border: 1px solid #cbdbe0; border-top: 4px solid #537f86; border-radius: 12px; padding: 24px; margin: 20px 0; }
+.help-card h2 { margin-top: 0; font-size: 1.4rem; color: #205d60; }
+.help-card:nth-of-type(even) { background: #f5fbf8; border-top-color: #977638; }
+@media(max-width:600px) { .local-home { white-space: normal; } .help-card { padding: 20px; } }
+
+/* Keep source numbers visibly attached to the statement they support. */
+.citation-anchor { white-space: nowrap; }
+.mw-body sup.reference { vertical-align: super; }
+.mw-body sup.reference > a { min-width: 24px; min-height: 24px; margin-inline: 2px; padding: 2px 3px; font-size: 12px; }
