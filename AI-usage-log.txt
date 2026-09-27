@@ -46,3 +46,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 21. Added a local Help page linked from the homepage and article. Explained search, citations, reference return links, and keyboard navigation. Enlarged and spaced citation targets and highlighted selected reference entries.
 
 22. Made citation buttons compact while retaining 24px targets, kept citation groups with preceding text to prevent detached line wrapping, and clarified in Help that citations support preceding statements.
+
+23. Prepared GitHub Pages hosting with a public-folder deployment workflow. Adapted search to relative static pages with a small browser script, preserving the Java local server. Updated documentation with the hosted URL and submission instructions.
