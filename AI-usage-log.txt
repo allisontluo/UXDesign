@@ -50,3 +50,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 23. Prepared GitHub Pages hosting with a public-folder deployment workflow. Adapted search to relative static pages with a small browser script, preserving the Java local server. Updated documentation with the hosted URL and submission instructions.
 
 24. Added an accessible picture viewer for article and homepage images. Article gallery uses higher-resolution local copies of the existing Wikimedia images; left/right arrows and buttons move through pictures, Escape closes, and focus returns to the selected picture. Updated Help.
+
+25. Constrained the picture viewer to viewport height with a flexible image area; oversized images shrink to fit while smaller images keep natural dimensions. Updated Help with picture viewing, keyboard navigation, and sizing instructions.
