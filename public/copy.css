@@ -243,3 +243,18 @@ body { background: #e9f1f3; }
 .citation-anchor { white-space: nowrap; }
 .mw-body sup.reference { vertical-align: super; }
 .mw-body sup.reference > a { min-width: 24px; min-height: 24px; margin-inline: 2px; padding: 2px 3px; font-size: 12px; }
+
+/* Larger picture viewer, with keyboard and visible button controls. */
+a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-description:has(img) { cursor: zoom-in; }
+.picture-viewer { position: fixed; width: min(1120px, calc(100vw - 32px)); max-width: none; max-height: calc(100vh - 32px); padding: 0; border: 2px solid #205d60; border-radius: 14px; background: #f9fcfc; color: #253345; box-shadow: 0 20px 60px #142a3580; }
+.picture-viewer::backdrop { background: #111b26d9; }
+.picture-viewer-inner { padding: 18px; }
+.picture-viewer-toolbar, .picture-viewer-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.picture-viewer-toolbar { border-bottom: 1px solid #cbdbe0; padding-bottom: 12px; font-weight: bold; }
+.picture-viewer button { border: 2px solid #205d60; border-radius: 7px; background: #205d60; color: white; font: bold 16px 'Times New Roman',serif; padding: 8px 12px; cursor: pointer; }
+.picture-viewer button:hover { background: #174a4d; }
+.picture-viewer figure { margin: 12px auto !important; text-align: center; }
+.picture-viewer-image { display: block; width: auto; height: auto; max-width: 100%; max-height: min(68vh, 900px); margin: auto; object-fit: contain; }
+.picture-viewer-caption { max-width: 850px; margin: 8px auto 0; font-size: 16px !important; line-height: 1.5; }
+.picture-viewer-controls { border-top: 1px solid #cbdbe0; padding-top: 12px; text-align: center; }
+@media(max-width:600px) { .picture-viewer-inner { padding: 10px; } .picture-viewer-controls span { display: none; } .picture-viewer-image { max-height: 60vh; } }

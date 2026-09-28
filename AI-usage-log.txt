@@ -48,3 +48,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 22. Made citation buttons compact while retaining 24px targets, kept citation groups with preceding text to prevent detached line wrapping, and clarified in Help that citations support preceding statements.
 
 23. Prepared GitHub Pages hosting with a public-folder deployment workflow. Adapted search to relative static pages with a small browser script, preserving the Java local server. Updated documentation with the hosted URL and submission instructions.
+
+24. Added an accessible picture viewer for article and homepage images. Article gallery uses higher-resolution local copies of the existing Wikimedia images; left/right arrows and buttons move through pictures, Escape closes, and focus returns to the selected picture. Updated Help.
