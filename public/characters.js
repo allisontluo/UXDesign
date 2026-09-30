@@ -34,7 +34,7 @@ if (charactersSection && originalGallery && collageLink) {
     { name: 'Tralalero Tralala', dl: '#mwiA', pictures: [collagePortrait('Tralalero Tralala', 'top-left')] },
     { name: 'Tung Tung Tung Sahur', dl: '#mwmw', extra: ['#mwoA', '#mwoQ'], pictures: [collagePortrait('Tung Tung Tung Sahur', 'top-right')] },
     { name: 'Bombardiro Crocodilo', dl: '#mwyQ', pictures: [collagePortrait('Bombardiro Crocodilo', 'bottom-right')] },
-    { name: 'Trippi Troppi', dl: '#mw5g', pictures: [
+    { name: 'Trippi Troppi', dl: '#mw5g', extra: ['#trippi-related'], pictures: [
       portrait(images.get('Trippi Troppi, cat and shrimp version'), 'Cat and shrimp version'),
       portrait(images.get('Trippi Troppi, fish and bear version'), 'Fish and bear version')
     ] },

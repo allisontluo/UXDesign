@@ -309,3 +309,6 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 .page-Italian_brainrot #toc-Characters-sublist { margin: 2px 0 7px 12px; padding-left: 10px; border-left: 2px solid #a8c8c0; }
 .page-Italian_brainrot #toc-Characters-sublist .vector-toc-link { padding: 3px 0; font-size: 13px; line-height: 1.3; }
 .page-Italian_brainrot #mwfw .vanchor > span[id] { scroll-margin-top: 24px; }
+
+.page-Italian_brainrot #mwfw .character-related { margin: 14px 0 0; padding-top: 10px; border-top: 1px solid #bfd4d5; font-size: 15px; line-height: 1.5; }
+.page-Italian_brainrot #mwfw .character-related a { font-weight: bold; }

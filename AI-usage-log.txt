@@ -56,3 +56,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 26. User asked to make Italian brainrot characters and their images easier to see. Assistant grouped each character's existing article description with a larger labeled image card, used the existing four-character collage for three characters without separate portraits, and kept additional pictured characters in a small gallery. The full-image viewer still opens from each card and lists repeated crops of the same collage only once.
 
 27. User asked to add character names under Contents if the sidebar would stay tidy. Assistant added compact, indented links to the seven main character descriptions beneath Characters in the article's Contents panel.
+
+28. User asked for one related-article link for Trippi Troppi. Assistant added a labeled link below its description to Wikipedia's Steal a Brainrot article, about a game built around Italian brainrot characters, and kept the link with the Trippi Troppi card in the redesigned layout.
