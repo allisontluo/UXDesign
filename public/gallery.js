@@ -1,9 +1,19 @@
 // Open article and homepage pictures without leaving this website.
-const pictureLinks = [...document.querySelectorAll('a.mw-file-description:has(img)')]
+const clickablePictures = [...document.querySelectorAll('a.mw-file-description:has(img)')]
   .filter(link => {
     const image = link.querySelector('img');
     return image.dataset.fullSrc || /assets\/home-image-[5-9]\./.test(image.getAttribute('src') || '');
   });
+// Several character cards show different crops of the same original collage.
+// Keep every crop clickable, but list that full picture only once in the viewer.
+const seenPictures = new Set();
+const pictureLinks = clickablePictures.filter(link => {
+  const image = link.querySelector('img');
+  const source = image.dataset.fullSrc || image.getAttribute('src');
+  if (seenPictures.has(source)) return false;
+  seenPictures.add(source);
+  return true;
+});
 
 if (pictureLinks.length) {
   const viewer = document.createElement('dialog');
@@ -44,8 +54,13 @@ if (pictureLinks.length) {
     count.textContent = `Picture ${current + 1} of ${pictureLinks.length}`;
   }
 
-  pictureLinks.forEach((link, index) => {
+  clickablePictures.forEach(link => {
     const image = link.querySelector('img');
+    const source = image.dataset.fullSrc || image.getAttribute('src');
+    const index = pictureLinks.findIndex(picture => {
+      const pictureImage = picture.querySelector('img');
+      return (pictureImage.dataset.fullSrc || pictureImage.getAttribute('src')) === source;
+    });
     link.setAttribute('aria-label', `View larger picture: ${image.alt || 'image'}`);
     link.addEventListener('click', event => {
       event.preventDefault();

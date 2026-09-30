@@ -258,3 +258,49 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 .picture-viewer-caption { max-width: 850px; max-height: 5em; overflow: auto; margin: 8px auto 0; font-size: 16px !important; line-height: 1.5; }
 .picture-viewer-controls { border-top: 1px solid #cbdbe0; padding-top: 12px; text-align: center; }
 @media(max-width:600px) { .picture-viewer-inner { padding: 10px; } .picture-viewer-controls span { display: none; } }
+
+/* Character guide: each name and description stays beside its picture. */
+.page-Italian_brainrot #mwfw .character-guide { display: grid; gap: 16px; margin: 24px 0; }
+.page-Italian_brainrot #mwfw .character-card {
+ display: grid; grid-template-columns: minmax(180px, 32%) minmax(0, 1fr); gap: 22px;
+ align-items: start; padding: 16px; background: #f7fbfa;
+ border: 1px solid #b8d0d0; border-left: 4px solid #43877b; border-radius: 10px;
+}
+.page-Italian_brainrot #mwfw .character-card:nth-child(even) { background: #f3f7fc; border-left-color: #537fa9; }
+.page-Italian_brainrot #mwfw .character-card-media { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; min-width: 0; }
+.page-Italian_brainrot #mwfw .character-portrait { float: none !important; width: auto; max-width: none; margin: 0 !important; padding: 0; border: 1px solid #bed0d7; border-radius: 8px; background: #fff; }
+.page-Italian_brainrot #mwfw .character-portrait a { display: block; height: 180px; overflow: hidden; border-radius: 7px 7px 0 0; }
+.page-Italian_brainrot #mwfw .character-portrait img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: 0; }
+.page-Italian_brainrot #mwfw .character-portrait figcaption { padding: 7px 9px !important; font-size: 14px !important; line-height: 1.35; }
+.page-Italian_brainrot #mwfw .character-portrait--top-left a,
+.page-Italian_brainrot #mwfw .character-portrait--top-right a,
+.page-Italian_brainrot #mwfw .character-portrait--bottom-right a { position: relative; }
+.page-Italian_brainrot #mwfw .character-portrait--top-left img,
+.page-Italian_brainrot #mwfw .character-portrait--top-right img,
+.page-Italian_brainrot #mwfw .character-portrait--bottom-right img { position: absolute; width: 200%; height: 200%; max-width: none; object-fit: fill; }
+.page-Italian_brainrot #mwfw .character-portrait--top-right img { left: -100%; }
+.page-Italian_brainrot #mwfw .character-portrait--bottom-right img { left: -100%; top: -100%; }
+.page-Italian_brainrot #mwfw .character-card-details { min-width: 0; }
+.page-Italian_brainrot #mwfw .character-card-details > dl,
+.page-Italian_brainrot #mwfw .character-card-details > dl:nth-of-type(even),
+.page-Italian_brainrot #mwfw .character-card-details > dl:nth-of-type(3n) {
+ width: auto; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent;
+}
+.page-Italian_brainrot #mwfw .character-card-details > dl + dl { margin-top: 8px; }
+.page-Italian_brainrot #mwfw .character-card-details dt { color: #224e52; font-size: 1.23rem; line-height: 1.35; }
+.page-Italian_brainrot #mwfw .character-card-details dd { line-height: 1.65; }
+.page-Italian_brainrot #mwfw .character-card-details .hatnote { margin: 4px 0 8px; }
+.page-Italian_brainrot #mwfw .character-extras { margin-top: 28px; }
+.page-Italian_brainrot #mwfw .character-extras h3 { margin-bottom: 12px; }
+.page-Italian_brainrot #mwfw .character-extras-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 230px)); gap: 14px; }
+.page-Italian_brainrot #mwfw .character-extras-grid .character-portrait img { object-fit: contain; }
+@media (max-width: 700px) {
+ .page-Italian_brainrot #mwfw .character-card { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+ .page-Italian_brainrot #mwfw .character-card-media { max-width: 440px; }
+ .page-Italian_brainrot #mwfw .character-portrait a { height: 210px; }
+}
+@media (max-width: 420px) {
+ .page-Italian_brainrot #mwfw .character-card { padding: 12px; }
+ .page-Italian_brainrot #mwfw .character-portrait a { height: 170px; }
+ .page-Italian_brainrot #mwfw .character-extras-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
