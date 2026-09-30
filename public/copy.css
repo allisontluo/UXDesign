@@ -304,3 +304,8 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
  .page-Italian_brainrot #mwfw .character-portrait a { height: 170px; }
  .page-Italian_brainrot #mwfw .character-extras-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+/* Compact, indented character links in the Contents panel. */
+.page-Italian_brainrot #toc-Characters-sublist { margin: 2px 0 7px 12px; padding-left: 10px; border-left: 2px solid #a8c8c0; }
+.page-Italian_brainrot #toc-Characters-sublist .vector-toc-link { padding: 3px 0; font-size: 13px; line-height: 1.3; }
+.page-Italian_brainrot #mwfw .vanchor > span[id] { scroll-margin-top: 24px; }

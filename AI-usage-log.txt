@@ -54,3 +54,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 25. Constrained the picture viewer to viewport height with a flexible image area; oversized images shrink to fit while smaller images keep natural dimensions. Updated Help with picture viewing, keyboard navigation, and sizing instructions.
 
 26. User asked to make Italian brainrot characters and their images easier to see. Assistant grouped each character's existing article description with a larger labeled image card, used the existing four-character collage for three characters without separate portraits, and kept additional pictured characters in a small gallery. The full-image viewer still opens from each card and lists repeated crops of the same collage only once.
+
+27. User asked to add character names under Contents if the sidebar would stay tidy. Assistant added compact, indented links to the seven main character descriptions beneath Characters in the article's Contents panel.
