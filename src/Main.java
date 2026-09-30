@@ -29,8 +29,12 @@ public class Main {
                             catch (IllegalArgumentException ignored) { query = ""; }
                         }
                     }
-                    if (query.replaceAll("\\s+", " ").equalsIgnoreCase("italian brainrot")) {
+                    String normalized = query.replaceAll("\\s+", " ");
+                    if (normalized.equalsIgnoreCase("italian brainrot")) {
                         exchange.getResponseHeaders().set("Location", "/article.html");
+                        exchange.sendResponseHeaders(303, -1);
+                    } else if (normalized.equalsIgnoreCase("steal a brainrot")) {
+                        exchange.getResponseHeaders().set("Location", "/steal-a-brainrot.html");
                         exchange.sendResponseHeaders(303, -1);
                     } else {
                         String html = """
@@ -39,11 +43,11 @@ public class Main {
                             <title>Search — Wikipedia project</title></head>
                             <body style="font:18px/1.6 Arial,sans-serif;max-width:700px;margin:50px auto;padding:20px">
                             <a href="/index.html">Back to homepage</a><h1>No matching article</h1>
-                            <p>This website currently includes one article. Search for <strong>Italian brainrot</strong>.</p>
+                            <p>Search for <strong>Italian brainrot</strong> or <strong>Steal a Brainrot</strong>.</p>
                             <form action="/search" method="get"><label for="search">Search this website</label><br>
                             <input id="search" name="search" type="search" style="font:inherit;padding:8px" required>
                             <button style="font:inherit;padding:8px">Search</button></form>
-                            <p>Or read <a href="/article.html">Italian brainrot</a>.</p></body></html>
+                            <p>Or read <a href="/article.html">Italian brainrot</a> or <a href="/steal-a-brainrot.html">Steal a Brainrot</a>.</p></body></html>
                             """;
                         byte[] body = html.getBytes(StandardCharsets.UTF_8);
                         exchange.getResponseHeaders().set("Content-Type", "text/html; charset=utf-8");

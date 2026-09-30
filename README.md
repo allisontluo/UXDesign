@@ -4,6 +4,7 @@ Website redesigned from pages copied from Wikipedia on September 23, 2026:
 
 - `public/index.html`: English Wikipedia homepage, with a link to the local article.
 - `public/article.html`: Italian brainrot article.
+- `public/steal-a-brainrot.html`: related article, redesigned in the same reading style.
 - `public/assets/`: downloaded styles and images.
 - `public/help.html`: search, citation, and keyboard navigation instructions.
 - `public/search.html` and `public/search.js`: search that works on static hosting.
@@ -21,7 +22,7 @@ java src/Main.java
 Open http://localhost:8080. Optional port: `java src/Main.java 8081`.
 HTML files also open directly in a browser. Refresh after changing HTML/CSS.
 
-This is a static reading copy, not the full MediaWiki application. Search for Italian brainrot opens the local article; other searches show a no-match page. Most outgoing encyclopedia article links have been changed to plain text. Utility, source, and image attribution links may lead to Wikipedia or other websites. Wikipedia scripts and tracking were removed. Some unavailable decorative logos were replaced with their text labels. The homepage is a dated snapshot, not a live news feed.
+This is a static reading copy, not the full MediaWiki application. Search for Italian brainrot or Steal a Brainrot opens a local article; other searches show a no-match page. The Trippi Troppi card links to the local Steal a Brainrot page. Most other outgoing encyclopedia article links have been changed to plain text. Utility, source, and image attribution links may lead to Wikipedia or other websites. Wikipedia scripts and tracking were removed. Some unavailable decorative logos were replaced with their text labels. The homepage is a dated snapshot, not a live news feed.
 
 ## Attribution
 
@@ -29,6 +30,7 @@ Content by Wikipedia contributors:
 
 - https://en.wikipedia.org/wiki/Main_Page
 - https://en.wikipedia.org/wiki/Italian_brainrot
+- https://en.wikipedia.org/wiki/Steal_a_Brainrot
 
 Text is available under CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/). Original source and history links, references, and image-description links are retained in the pages. Images retain their individual licenses as described on their linked Wikimedia file pages. Wikipedia and Wikimedia marks belong to their respective owners; this student project is not affiliated with Wikipedia.
 

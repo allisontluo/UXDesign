@@ -314,3 +314,49 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 .page-Italian_brainrot #mwfw .character-related a,
 .page-Italian_brainrot #mwfw .character-related a:visited { display: inline-block; margin: 2px 4px; padding: 5px 10px; background: #205d60; border: 2px solid #205d60; border-radius: 6px; color: #fff; font-weight: bold; text-decoration: underline; text-underline-offset: 3px; }
 .page-Italian_brainrot #mwfw .character-related a:hover { background: #16464a; border-color: #16464a; }
+
+/* Related article: the same reading palette, with a clear route back to Trippi Troppi. */
+.related-page { margin: 0; background: #e9f1f3; color: #253345; font: 16px/1.7 'Times New Roman', Times, serif; }
+.related-page .local-header { box-sizing: border-box; }
+.related-page .local-home, .related-page .local-home:visited { font-family: 'Times New Roman', Times, serif; color: #205d60; }
+.related-page a { color: #174e83; text-underline-offset: 3px; }
+.related-page a:visited { color: #4b2b82; }
+.related-shell { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; max-width: 1240px; margin: 0 auto; padding: 32px 24px 64px; }
+.related-toc { align-self: start; position: sticky; top: 24px; padding: 17px 19px; background: #e1efeb; border: 1px solid #b8d0d0; border-radius: 10px; }
+.related-toc h2 { margin: 0 0 9px; color: #205d60; font-size: 1.2rem; }
+.related-toc ol { margin: 0; padding-left: 21px; }
+.related-toc li { padding: 4px 0; }
+.related-content { min-width: 0; }
+.related-breadcrumb { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; margin-bottom: 13px; font-size: 14px; }
+.related-hero { padding: 28px 32px; background: #fff; border: 1px solid #b8d0d0; border-top: 5px solid #538f9e; border-radius: 12px; }
+.related-eyebrow, .related-kicker { margin: 0 0 4px; color: #8a6422; font-weight: bold; letter-spacing: .04em; text-transform: uppercase; font-size: .85rem; }
+.related-hero h1 { margin: 0; color: #205d60; font-size: clamp(2rem, 4vw, 2.7rem); line-height: 1.15; }
+.related-hero p:not(.related-eyebrow) { max-width: 60ch; margin: 10px 0 19px; font-size: 1.08rem; }
+.related-page .related-back, .related-page .related-back:visited { display: inline-block; padding: 7px 12px; background: #205d60; border: 2px solid #205d60; border-radius: 6px; color: #fff; font-weight: bold; }
+.related-page .related-back:hover { background: #16464a; }
+.related-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 18px 0; }
+.related-facts > div { padding: 12px 16px; background: #fffaf0; border: 1px solid #dccb9e; border-left: 4px solid #b28a3b; border-radius: 8px; }
+.related-facts span, .related-facts strong { display: block; }
+.related-facts span { color: #624d26; font-size: .85rem; }
+.related-facts strong { color: #253345; }
+.related-card { margin: 16px 0; padding: 24px 28px; background: #fff; border: 1px solid #cbdbe0; border-top: 4px solid #538f9e; border-radius: 10px; scroll-margin-top: 20px; }
+.related-card h2 { margin: 0 0 12px; color: #205d60; font-size: 1.5rem; line-height: 1.25; }
+.related-card p { max-width: 72ch; margin: 0 0 12px; }
+.related-card p:last-child { margin-bottom: 0; }
+.related-overview { display: grid; grid-template-columns: minmax(0, 1fr) minmax(190px, 30%); gap: 25px; background: #f8fcfa; border-top-color: #43877b; }
+.related-connection { align-self: start; padding: 16px; background: #e1efeb; border-radius: 8px; }
+.related-connection h3 { margin: 0 0 8px; color: #205d60; font-size: 1.12rem; }
+.related-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.related-columns .related-card { margin: 0; }
+.related-columns .related-card:nth-child(2) { background: #f3f7fc; border-top-color: #537fa9; }
+.related-sources { background: #fffaf0; border-top-color: #b28a3b; }
+@media (max-width: 850px) {
+ .related-shell { grid-template-columns: minmax(0, 1fr); gap: 18px; padding: 20px 16px 48px; }
+ .related-toc { position: static; }
+ .related-toc ol { columns: 2; }
+}
+@media (max-width: 600px) {
+ .related-hero, .related-card { padding: 20px; }
+ .related-facts, .related-overview, .related-columns { grid-template-columns: 1fr; }
+ .related-toc ol { columns: 1; }
+}
