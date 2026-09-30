@@ -269,12 +269,12 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 .page-Italian_brainrot #mwfw .character-card:nth-child(even) { background: #f3f7fc; border-left-color: #537fa9; }
 .page-Italian_brainrot #mwfw .character-card-media { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; min-width: 0; }
 .page-Italian_brainrot #mwfw .character-portrait { float: none !important; width: auto; max-width: none; margin: 0 !important; padding: 0; border: 1px solid #bed0d7; border-radius: 8px; background: #fff; }
-.page-Italian_brainrot #mwfw .character-portrait a { display: block; height: 180px; overflow: hidden; border-radius: 7px 7px 0 0; }
+.page-Italian_brainrot #mwfw .character-portrait .mw-file-description { display: block; box-sizing: border-box; width: 100%; height: 180px; overflow: hidden; padding: 0; border: 0; border-radius: 7px 7px 0 0; background: transparent; cursor: zoom-in; }
 .page-Italian_brainrot #mwfw .character-portrait img { display: block; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: 0; }
 .page-Italian_brainrot #mwfw .character-portrait figcaption { padding: 7px 9px !important; font-size: 14px !important; line-height: 1.35; }
-.page-Italian_brainrot #mwfw .character-portrait--top-left a,
-.page-Italian_brainrot #mwfw .character-portrait--top-right a,
-.page-Italian_brainrot #mwfw .character-portrait--bottom-right a { position: relative; }
+.page-Italian_brainrot #mwfw .character-portrait--top-left .mw-file-description,
+.page-Italian_brainrot #mwfw .character-portrait--top-right .mw-file-description,
+.page-Italian_brainrot #mwfw .character-portrait--bottom-right .mw-file-description { position: relative; }
 .page-Italian_brainrot #mwfw .character-portrait--top-left img,
 .page-Italian_brainrot #mwfw .character-portrait--top-right img,
 .page-Italian_brainrot #mwfw .character-portrait--bottom-right img { position: absolute; width: 200%; height: 200%; max-width: none; object-fit: fill; }
@@ -297,11 +297,11 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 @media (max-width: 700px) {
  .page-Italian_brainrot #mwfw .character-card { grid-template-columns: minmax(0, 1fr); gap: 12px; }
  .page-Italian_brainrot #mwfw .character-card-media { max-width: 440px; }
- .page-Italian_brainrot #mwfw .character-portrait a { height: 210px; }
+ .page-Italian_brainrot #mwfw .character-portrait .mw-file-description { height: 210px; }
 }
 @media (max-width: 420px) {
  .page-Italian_brainrot #mwfw .character-card { padding: 12px; }
- .page-Italian_brainrot #mwfw .character-portrait a { height: 170px; }
+ .page-Italian_brainrot #mwfw .character-portrait .mw-file-description { height: 170px; }
  .page-Italian_brainrot #mwfw .character-extras-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 

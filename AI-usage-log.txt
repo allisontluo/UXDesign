@@ -62,3 +62,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 29. User asked to style the Trippi Troppi related-article link with the website's palette. Assistant gave it a teal link treatment inside a pale gold callout, with a darker hover state and the existing visible keyboard-focus style.
 
 30. User clarified that the destination of the Trippi Troppi related-article link should be redesigned in the same website palette. Assistant created a local Steal a Brainrot reading page with the site's teal, blue, and gold cards and Times New Roman type, changed the related link to open it, connected search and Help to the new page, and credited the original Wikipedia article.
+
+31. User supplied WAVE screenshots from the redesigned Italian brainrot article showing eight alerts. Assistant identified the five redundant image alternatives, two repeated collage-file links, and one hidden citation-maintenance link labeled only "link." It replaced the image alternatives with visual descriptions, made repeated collage crops into labeled buttons that still open the picture viewer, and removed the irrelevant hidden maintenance link.

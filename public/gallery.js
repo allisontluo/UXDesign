@@ -1,5 +1,5 @@
 // Open article and homepage pictures without leaving this website.
-const clickablePictures = [...document.querySelectorAll('a.mw-file-description:has(img)')]
+const clickablePictures = [...document.querySelectorAll('a.mw-file-description:has(img), button.mw-file-description:has(img)')]
   .filter(link => {
     const image = link.querySelector('img');
     return image.dataset.fullSrc || /assets\/home-image-[5-9]\./.test(image.getAttribute('src') || '');
