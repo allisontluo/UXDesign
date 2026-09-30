@@ -58,3 +58,5 @@ This log summarizes AI use in this conversation only. No heuristic evaluation, a
 27. User asked to add character names under Contents if the sidebar would stay tidy. Assistant added compact, indented links to the seven main character descriptions beneath Characters in the article's Contents panel.
 
 28. User asked for one related-article link for Trippi Troppi. Assistant added a labeled link below its description to Wikipedia's Steal a Brainrot article, about a game built around Italian brainrot characters, and kept the link with the Trippi Troppi card in the redesigned layout.
+
+29. User asked to style the Trippi Troppi related-article link with the website's palette. Assistant gave it a teal link treatment inside a pale gold callout, with a darker hover state and the existing visible keyboard-focus style.

@@ -310,5 +310,7 @@ a.mw-file-description:has(img[data-full-src]), .page-Main_Page a.mw-file-descrip
 .page-Italian_brainrot #toc-Characters-sublist .vector-toc-link { padding: 3px 0; font-size: 13px; line-height: 1.3; }
 .page-Italian_brainrot #mwfw .vanchor > span[id] { scroll-margin-top: 24px; }
 
-.page-Italian_brainrot #mwfw .character-related { margin: 14px 0 0; padding-top: 10px; border-top: 1px solid #bfd4d5; font-size: 15px; line-height: 1.5; }
-.page-Italian_brainrot #mwfw .character-related a { font-weight: bold; }
+.page-Italian_brainrot #mwfw .character-related { margin: 16px 0 0; padding: 12px 14px; background: #fffaf0; border: 1px solid #dccb9e; border-left: 4px solid #b28a3b; border-radius: 8px; color: #253345; font-size: 15px; line-height: 1.7; }
+.page-Italian_brainrot #mwfw .character-related a,
+.page-Italian_brainrot #mwfw .character-related a:visited { display: inline-block; margin: 2px 4px; padding: 5px 10px; background: #205d60; border: 2px solid #205d60; border-radius: 6px; color: #fff; font-weight: bold; text-decoration: underline; text-underline-offset: 3px; }
+.page-Italian_brainrot #mwfw .character-related a:hover { background: #16464a; border-color: #16464a; }
