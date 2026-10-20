@@ -228,3 +228,8 @@ now sit below the question so longer text can wrap. Changed the label to
 Browser verification confirmed 18px question/answer text on desktop, 17px on a
 390px phone viewport, readable slider values, the new priority label, and no
 horizontal overflow. Browser viewport override was reset after testing.
+User follow-up: “adjust photos so you can see full dog” with a cropped Newfoundland
+swipe photo. Changed swipe, catalog, and comparison images to contain their full
+source frame. Removed comparison zoom transforms. Moved swipe metadata below
+the image so it does not cover the dog. Existing close-up source photos remain
+close-ups; this change shows everything available in each original photo.
