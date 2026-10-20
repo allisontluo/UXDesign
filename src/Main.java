@@ -57,11 +57,13 @@ public class Main {
                     return;
                 }
                 Path file = root.resolve(url.equals("/") ? "index.html" : url.substring(1)).normalize();
+                if (file.startsWith(root) && Files.isDirectory(file)) file = file.resolve("index.html");
                 if (!file.startsWith(root) || !Files.isRegularFile(file) || !file.toRealPath().startsWith(root)) {
                     exchange.sendResponseHeaders(404, -1);
                     return;
                 }
-                String type = Files.probeContentType(file);
+                String type = file.toString().endsWith(".mjs") || file.toString().endsWith(".js")
+                    ? "text/javascript" : Files.probeContentType(file);
                 if (type == null) type = "application/octet-stream";
                 exchange.getResponseHeaders().set("Content-Type", type + "; charset=utf-8");
                 exchange.getResponseHeaders().set("Cache-Control", "no-cache");
@@ -77,6 +79,6 @@ public class Main {
             }
         });
         server.start();
-        System.out.println("Italian Brainrot preview: http://localhost:" + port);
+        System.out.println("UX Design preview: http://localhost:" + port);
     }
 }

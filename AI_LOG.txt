@@ -71,3 +71,10 @@ care-plan cap and sorting, and corrupt persisted data. Browser checks cover the
 three-step workflow, the long-day branch, favorites, reload persistence, the
 comparison limit, metric selection, and responsive layout. No student testing or
 independent review is claimed by this log.
+
+LOCAL SERVER COMPATIBILITY
+The retained Java preview server originally returned 404 for directory URLs such
+as /dog-match/ and relied on platform MIME detection for modules. It now resolves
+index.html in directories and explicitly serves .js/.mjs as text/javascript.
+Verified with the Java server on port 8089: /dog-match/ returned 200 text/html and
+/dog-match/engine.mjs returned 200 text/javascript.
