@@ -144,3 +144,10 @@ User: “include photos of them” with screenshots of the comparison chart.
 Added each selected breed's bundled photo beside its name in every comparison
 metric. Mobile chart rows place the photo/name above the bar to preserve space.
 Existing Wikimedia photo attributions apply. Updated CSS/app URL versions.
+User follow-up: “larger photo, more close up of them”
+Enlarged comparison photos to portrait cards and added breed-specific crop/zoom
+positions. Mobile photos span the available chart width above their score bars.
+Replaced the distant Greyhound racing and Whippet group photos with correctly
+identified breed portraits from Wikimedia Commons. Updated photo credits and
+cache versions. Rejected an Italian Greyhound image to avoid mislabeling it as
+a Greyhound. Verified the replacement portraits visually before use.

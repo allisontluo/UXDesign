@@ -9,15 +9,6 @@
     "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/A_havanese_dog_in_Finland.jpg/960px-A_havanese_dog_in_Finland.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
   {
-    "id": "whippet",
-    "title": "File:Fireworks Whippets.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Fireworks_Whippets.jpg",
-    "artist": "Winky, Vancouver, Canada",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
-    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Fireworks_Whippets.jpg/960px-Fireworks_Whippets.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
-  },
-  {
     "id": "labrador",
     "title": "File:DSC09611a Search and Rescue Dog, Austrian Red Cross Perchtoldsdorf, 2024-10.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:DSC09611a_Search_and_Rescue_Dog,_Austrian_Red_Cross_Perchtoldsdorf,_2024-10.jpg",
@@ -36,15 +27,6 @@
     "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Border_Collie_with_Heterochromia_2.jpg/960px-Border_Collie_with_Heterochromia_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
   {
-    "id": "greyhound",
-    "title": "File:Greyhound Racing 2 amk.jpg",
-    "source": "https://commons.wikimedia.org/wiki/File:Greyhound_Racing_2_amk.jpg",
-    "artist": "AngMoKio",
-    "license": "CC BY-SA 3.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Greyhound_Racing_2_amk.jpg/960px-Greyhound_Racing_2_amk.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
-  },
-  {
     "id": "poodle",
     "title": "File:Standard Poodle portrait.jpg",
     "source": "https://commons.wikimedia.org/wiki/File:Standard_Poodle_portrait.jpg",
@@ -52,5 +34,23 @@
     "license": "CC BY 2.0",
     "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
     "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Standard_Poodle_portrait.jpg/960px-Standard_Poodle_portrait.jpg"
+  },
+  {
+    "id": "whippet",
+    "title": "File:Whippet profil rybnik - kamien p.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Whippet_profil_rybnik_-_kamien_p.jpg",
+    "artist": "Pleple2000",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Whippet_profil_rybnik_-_kamien_p.jpg/1280px-Whippet_profil_rybnik_-_kamien_p.jpg"
+  },
+  {
+    "id": "greyhound",
+    "title": "File:A greyhound displays a martingale collar.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:A_greyhound_displays_a_martingale_collar.jpg",
+    "artist": "Supreme Chungus",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/a/aa/A_greyhound_displays_a_martingale_collar.jpg"
   }
 ]
