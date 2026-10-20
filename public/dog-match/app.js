@@ -1,4 +1,4 @@
-import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels} from './engine.mjs?v=2';
+import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels} from './engine.mjs?v=4';
 const $=id=>document.getElementById(id);
 const key='uxdesign-pawfect-match-v1';
 let state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[],history:[]};
@@ -12,6 +12,10 @@ function showStep(focus=false){document.querySelectorAll('[data-step]').forEach(
 function updateProfile(){state.profile=normalizeProfile(Object.fromEntries(new FormData(form)));persist();render();}
 function render(){const p=state.profile;const ranked=rankBreeds(p);$('exercise-value').textContent=`${p.exercise} minutes`;$('alone-value').textContent=`${p.alone} hours`;$('care-branch').hidden=p.alone<=5;
  $('live-preview').innerHTML=ranked.slice(0,3).map(({breed:b,score})=>`<div class="live-row"><div class="live-label"><span>${b.name}</span><strong>${score}% fit</strong></div><div class="track" aria-hidden="true"><div class="bar" style="width:${score}%"></div></div></div>`).join('');
+ $('matches').hidden=!state.completed;
+ $('discover').hidden=!state.completed;
+ $('discover-nav').hidden=!state.completed;
+ $('discover-locked').hidden=state.completed;
  $('results-placeholder').hidden=state.completed;$('results-content').hidden=!state.completed;
  $('results-subtitle').textContent=state.completed?'Made for your routine. Updated with every answer.':'Finish the quiz to reveal your personalized matches.';
  $('care-message').hidden=!needsCarePlan(p);$('care-message').textContent='Care plan needed: you’re away more than 5 hours without support. Scores are capped at 55 until you add a plan. Discuss the individual dog’s needs with a shelter or care professional.';
@@ -29,7 +33,7 @@ form.addEventListener('input',updateProfile);
 $('next').addEventListener('click',()=>{state.step=Math.min(2,state.step+1);persist();showStep(true);});
 $('back').addEventListener('click',()=>{state.step=Math.max(0,state.step-1);persist();showStep(true);});
 // Enter on an earlier step advances instead of bypassing the quiz.
-form.addEventListener('submit',event=>{event.preventDefault();if(state.step<2){state.step++;persist();showStep(true);return;}state.completed=true;state.compare=state.compare.length?state.compare:rankBreeds(state.profile).slice(0,2).map(x=>x.breed.id);persist();render();$('matches').scrollIntoView({behavior:'smooth'});$('results-title').tabIndex=-1;$('results-title').focus({preventScroll:true});toast('Your matches are ready. Save a favorite or compare your options.');});
+form.addEventListener('submit',event=>{event.preventDefault();if(state.step<2){state.step++;persist();showStep(true);return;}state.completed=true;persist();render();$('discover').scrollIntoView({behavior:'smooth'});$('discovery-title').tabIndex=-1;$('discovery-title').focus({preventScroll:true});toast('Your matches are ready. Swipe right to like or left to pass.');});
 $('breed-cards').addEventListener('click',event=>{const button=event.target.closest('[data-save]');if(!button)return;const id=button.dataset.save;const saved=state.favorites.includes(id);state.favorites=saved?state.favorites.filter(x=>x!==id):[...state.favorites,id];persist();render();const replacement=document.querySelector(`[data-save="${id}"]`);if(replacement)replacement.focus();else $('only-saved').focus();toast(saved?'Removed from your shortlist.':'Saved to your shortlist.');});
 $('breed-cards').addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-compare]'))return;const id=input.dataset.compare;if(input.checked&&state.compare.length>=3){input.checked=false;toast('Choose up to 3 dogs. Uncheck one before adding another.');return;}state.compare=input.checked?[...state.compare,id]:state.compare.filter(x=>x!==id);persist();renderChart();});
 $('metric').addEventListener('change',()=>renderChart());$('only-saved').addEventListener('change',()=>render());
@@ -73,3 +77,4 @@ $('swipe-card').addEventListener('pointerup',event=>{if(!gesture)return;const dx
 $('swipe-card').addEventListener('pointercancel',cancelGesture);
 
 showStep();render();
+if(location.hash==='#discover'&&!state.completed){history.replaceState(null,'','#quiz');$('quiz').scrollIntoView();}

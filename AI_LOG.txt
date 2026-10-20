@@ -123,3 +123,18 @@ LAYOUT FOLLOW-UP
 User: “maybe put swiping under the questionaire”
 Moved photo discovery below the lifestyle questionnaire and above match results.
 The main hero button now leads to the questionnaire. Swipe behavior is unchanged.
+
+SIMPLER DESIGN FOLLOW-UP
+User: “website is quite busy, give it a color scheme again and change the font.
+also, the pass swipe is still above the questionnaire”
+Replaced the cream/terracotta/serif design with soft blue, white, and navy and local
+DM Sans font files (SIL OFL license bundled). Removed the large decorative hero,
+floating tags, and repeated explanatory sections. The questionnaire physically
+precedes discovery in the DOM. Discovery/results now unlock only after completing
+the three quiz steps. Initial old #discover links redirect to #quiz for incomplete
+profiles. Completed profiles retain their data. The finish action opens discovery,
+and all-six result cards are grouped under a disclosure. Automatic comparison
+selection was removed; new comparisons appear when the user chooses breeds.
+CSS, app, and engine URLs use a new version to avoid cached old layouts/scripts.
+Browser checks verified the incomplete-quiz redirect, the hidden swipe controls
+before completion, and the completed quiz revealing discovery below it.

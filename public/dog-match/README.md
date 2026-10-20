@@ -39,7 +39,7 @@ teaching data, with source links and limitations explained in the UI.
 
 ## Photo discovery
 
-Open `#discover` to start without finishing the quiz. Swipe/drag the photo right
+Complete the questionnaire first to unlock the discovery section below it. Swipe/drag the photo right
 or left, use Like/Pass buttons, or focus the card and use arrow keys. Likes save
 the breed to favorites; passes remove it from favorites. The next unseen breed is
 ranked using 65% lifestyle fit, 20% explicit fluffy/sleek preference, and 15% learned
@@ -52,3 +52,11 @@ Each breed appears once per round. Undo restores the last decision’s prior fav
 state. Restart clears swipe history but retains favorites and quiz answers. The
 same coat preference is available in the quiz and stays synchronized with the deck.
 Old saved profiles migrate to an open coat preference and empty swipe history.
+
+## Simplified visual design
+
+Soft blue, white, and navy with locally bundled DM Sans (SIL Open Font License).
+The questionnaire is the first task; discovery and match results unlock after it
+is completed. All breed cards are grouped in a disclosure, and comparisons appear
+when breeds have been selected. Old `#discover` links redirect incomplete quizzes
+to `#quiz`. Asset version parameters prevent stale scripts/styles after updates.
