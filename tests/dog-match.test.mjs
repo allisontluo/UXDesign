@@ -4,7 +4,7 @@ import {breeds,defaults,rankBreeds,normalizeProfile,restoreState} from '../publi
 test('every score stays finite and in range across preference combinations',()=>{
  for(const exercise of [15,60,150])for(const grooming of [1,2,3])for(const priority of ['balanced','activity','coat','size'])for(const alone of [0,10]){
   const rows=rankBreeds({...defaults,exercise,grooming,priority,alone});
-  assert.equal(rows.length,6);assert(rows.every(x=>Number.isInteger(x.score)&&x.score>=0&&x.score<=100));
+  assert.equal(rows.length,breeds.length);assert(rows.every(x=>Number.isInteger(x.score)&&x.score>=0&&x.score<=100));
   assert(rows.every((x,i)=>i===0||rows[i-1].score>=x.score));
  }
 });
@@ -46,4 +46,21 @@ test('old saved state migrates; duplicate or invalid swipe records are dropped',
  const old=restoreState({version:1,profile:defaults});assert.deepEqual(old.history,[]);assert.equal(old.profile.fluff,'any');
  const saved=restoreState({version:1,history:[{id:'poodle',choice:'like',wasSaved:true},{id:'poodle',choice:'pass'},{id:'bogus',choice:'like'},{id:'collie',choice:'hack'}]});
  assert.deepEqual(saved.history,[{id:'poodle',choice:'like',wasSaved:true}]);
+});
+
+test('expanded catalog has photos, coat values, and preserves the old swipe history',async()=>{
+ const {existsSync}=await import('node:fs');
+ const {fluffLevels,discoveryQueue}=await import('../public/dog-match/engine.mjs');
+ assert.equal(breeds.length,11);
+ for(const id of ['samoyed','aussiedoodle','golden','goldendoodle','terrier']) assert(breeds.some(b=>b.id===id));
+ for(const b of breeds){
+  assert(Number.isFinite(fluffLevels[b.id]));
+  assert(existsSync(new URL(`../public/dog-match/photos/${b.id}.jpg`,import.meta.url)));
+ }
+ const original=['havanese','whippet','labrador','poodle','collie','greyhound'];
+ const oldHistory=original.map(id=>({id,choice:'pass'}));
+ const queue=discoveryQueue({...defaults,fluff:'fluffy'},oldHistory);
+ assert.equal(queue.length,5);assert(queue.every(x=>Number.isFinite(x.discoveryScore)&&!original.includes(x.breed.id)));
+ const restored=restoreState({version:1,history:oldHistory,favorites:['poodle'],completed:true});
+ assert.equal(restored.history.length,6);assert.deepEqual(restored.favorites,['poodle']);assert(restored.completed);
 });

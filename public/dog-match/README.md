@@ -20,7 +20,7 @@ modules are restricted when opening an HTML file directly with `file://`.
 - `app.js`: form events, persistent state, rendering, favorites, comparison.
 - `engine.mjs`: validated profile data, deterministic scoring, saved-state recovery.
 - `dog.svg`: original locally bundled illustration.
-- `photos/`: six bundled breed photos and source/license metadata in `credits.json`. Photo attribution also appears in the website’s sources disclosure. No runtime image API or font requests.
+- `photos/`: eleven bundled breed photos and source/license metadata in `credits.json`. Photo attribution also appears in the website’s sources disclosure. No runtime image API or font requests.
 - `../../AI_LOG.txt`: AI disclosure, exact prompt, real fixes, and architecture.
 - `../../tests/dog-match.test.mjs`: regression tests, run with Node's built-in runner.
 
@@ -48,7 +48,7 @@ term strengthens over the first three choices. The displayed lifestyle score
 remains independent of appearance. This is a local deterministic recommender,
 not a runtime AI service.
 
-Each breed appears once per round. Undo restores the last decision’s prior favorite
+Each dog type appears once per round. Undo restores the last decision’s prior favorite
 state. Restart clears swipe history but retains favorites and quiz answers. The
 same coat preference is available in the quiz and stays synchronized with the deck.
 Old saved profiles migrate to an open coat preference and empty swipe history.
@@ -57,6 +57,15 @@ Old saved profiles migrate to an open coat preference and empty swipe history.
 
 Soft blue, white, and navy with locally bundled DM Sans (SIL Open Font License).
 The questionnaire is the first task; discovery and match results unlock after it
-is completed. All breed cards are grouped in a disclosure, and comparisons appear
+is completed. All breed and mix cards are grouped in a disclosure, and comparisons appear
 when breeds have been selected. Old `#discover` links redirect incomplete quizzes
 to `#quiz`. Asset version parameters prevent stale scripts/styles after updates.
+
+## Expanded dog types
+
+The catalog now includes 11 types: the original six plus Samoyed, Aussiedoodle,
+Golden Retriever, Goldendoodle, and Jack Russell Terrier. Doodles are mixes with
+variable size and coat traits; numerical values describe representative teaching
+profiles. “Terrier” is represented by a Jack Russell Terrier. The Aussiedoodle
+image was supplied by the user. Existing six-dog swipe histories preserve all
+choices and expose the five new types automatically.

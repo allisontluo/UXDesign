@@ -151,3 +151,27 @@ Replaced the distant Greyhound racing and Whippet group photos with correctly
 identified breed portraits from Wikimedia Commons. Updated photo credits and
 cache versions. Rejected an Italian Greyhound image to avoid mislabeling it as
 a Greyhound. Verified the replacement portraits visually before use.
+
+EXPANDED DOG CATALOG
+User: “have more options for dog types, include samoyed, aussiedoodle,
+golden retriever, golden doodle, terrier”
+Follow-up: “use this photo for the aussiedoodle” with IMG_7764.HEIC.
+Added Samoyed, Aussiedoodle, Golden Retriever, Goldendoodle, and Jack Russell
+Terrier. Terrier is a broad group, so this project explicitly uses a Jack Russell
+Terrier example. Doodle profiles explicitly describe variable size, coat, and
+shedding and use representative adult sizes for the teaching score. New profiles
+have activity/grooming estimates, coat-appearance values, watch-outs, and sources
+(AKC, PetMD, and VCA). They participate in ranking, swiping, favorites, and charts.
+
+Bundled four reusable Commons images with attribution and the user's supplied
+Aussiedoodle photo, converted from HEIC to a web JPEG. No HEIC original or location
+metadata is included in the website. The originally sourced Commons Aussiedoodle
+image was replaced, and its unused credit was removed. All current sources are
+listed in photos/credits.json and in the website's credits disclosure.
+
+Counts now derive from the catalog in the app. The old six-dog swipe history stays
+valid and leaves five new unseen options without clearing existing favorites.
+Seven automated tests pass, including catalog size/IDs, photo availability, coat
+values, finite recommendation scores, and continuation from an old six-dog history.
+Browser checks verified all eleven cards, comparisons of the new types, persisted
+comparison choices, and the user's Aussiedoodle photo loading correctly.

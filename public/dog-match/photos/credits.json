@@ -52,5 +52,49 @@
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
     "download": "https://upload.wikimedia.org/wikipedia/commons/a/aa/A_greyhound_displays_a_martingale_collar.jpg"
+  },
+  {
+    "id": "samoyed",
+    "title": "File:Samoyed dog two year old female dllu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Samoyed_dog_two_year_old_female_dllu.jpg",
+    "artist": "Dllu",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Samoyed_dog_two_year_old_female_dllu.jpg/1280px-Samoyed_dog_two_year_old_female_dllu.jpg"
+  },
+  {
+    "id": "golden",
+    "title": "File:D\u00fclmen, Hausd\u00fclmen, Golden Retriever -- 2022 -- 5945.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Hausd%C3%BClmen,_Golden_Retriever_--_2022_--_5945.jpg",
+    "artist": "Dietmar Rabich",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/D%C3%BClmen%2C_Hausd%C3%BClmen%2C_Golden_Retriever_--_2022_--_5945.jpg/1280px-D%C3%BClmen%2C_Hausd%C3%BClmen%2C_Golden_Retriever_--_2022_--_5945.jpg"
+  },
+  {
+    "id": "goldendoodle",
+    "title": "File:Goldendoodle (Chase Bohannon).png",
+    "source": "https://commons.wikimedia.org/wiki/File:Goldendoodle_(Chase_Bohannon).png",
+    "artist": "Chase Bohannon",
+    "license": "CC0",
+    "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Goldendoodle_%28Chase_Bohannon%29.png"
+  },
+  {
+    "id": "terrier",
+    "title": "File:Skipper Jack Russell Terrier.JPG",
+    "source": "https://commons.wikimedia.org/wiki/File:Skipper_Jack_Russell_Terrier.JPG",
+    "artist": "DuncanMcC",
+    "license": "Public domain",
+    "licenseUrl": "",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c8/Skipper_Jack_Russell_Terrier.JPG/1280px-Skipper_Jack_Russell_Terrier.JPG"
+  },
+  {
+    "id": "aussiedoodle",
+    "title": "Aussiedoodle photo supplied by the user",
+    "source": "",
+    "artist": "User-provided photo",
+    "license": "Used at the user\u2019s request",
+    "licenseUrl": ""
   }
 ]
