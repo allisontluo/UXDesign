@@ -118,3 +118,8 @@ no horizontal overflow. Original lifestyle quiz and comparison remain available.
 Deployment refinement: a live browser refresh fetched the new HTML while retaining
 older cached JavaScript, leaving the new swipe region empty. Versioned CSS, app,
 and engine module URLs now ensure the updated HTML loads matching assets.
+
+LAYOUT FOLLOW-UP
+User: “maybe put swiping under the questionaire”
+Moved photo discovery below the lifestyle questionnaire and above match results.
+The main hero button now leads to the questionnaire. Swipe behavior is unchanged.
