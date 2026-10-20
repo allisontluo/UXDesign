@@ -78,3 +78,39 @@ as /dog-match/ and relied on platform MIME detection for modules. It now resolve
 index.html in directories and explicitly serves .js/.mjs as text/javascript.
 Verified with the Java server on port 8089: /dog-match/ returned 200 text/html and
 /dog-match/engine.mjs returned 200 text/javascript.
+
+PHOTO DISCOVERY UPDATE — October 20, 2026
+Exact follow-up user prompt:
+“add photos to the dogs and allow you to swipe through them and do like or pass,
+and have the next dogs that show up tailored to that, maybe also include whether
+they like fluffier dogs or not”
+
+Codex added six licensed Wikimedia Commons photos (credits in the website and
+photos/credits.json), photos on result cards, and an adaptive swipe deck. A first
+image search returned a Toy Poodle; inspection caught the mismatch with the
+Standard Poodle profile, so it was replaced with a correctly labeled Standard
+Poodle portrait before publication.
+
+The discovery algorithm combines uncapped lifestyle fit (65%), a fluffy/sleek/open
+coat preference (20%), and learned similarity (15%). Similarity compares coat
+appearance (50%), size (25%), and activity target (25%). Likes reward similarity;
+passes reward dissimilarity. Learning confidence increases over the first three
+votes. Lifestyle scores shown to users remain separate and still apply the care
+plan cap. This teaching model is transparent and deterministic; it is not evidence
+of individual dog compatibility or an adoption decision.
+
+Swipe decisions persist as validated, unique breed/choice records. Each decision
+also remembers whether the breed was previously saved, so undo can restore its
+prior favorite state. Restart clears learning while preserving favorites. Older
+version-1 saved records remain compatible: missing history becomes an empty list
+and missing coat preference becomes “any”. The deck exhausts after six dogs and
+shows a restart state rather than repeating passed dogs silently. Pointer swipes,
+buttons, and keyboard arrows share the same decision handler. Vertical scrolling
+is preserved on touch screens.
+
+Validation: six automated tests pass, including new cases for fluffy/sleek ranking,
+learning from likes versus passes, seen-dog exclusion, empty queue, and old/corrupt
+history migration. Browser verification covered fluffy preference changing the
+first dog, liking changing the next dog, reload persistence, left-arrow pass, undo,
+actual photo dragging to like, all-six completion, restart, and 390px layout with
+no horizontal overflow. Original lifestyle quiz and comparison remain available.

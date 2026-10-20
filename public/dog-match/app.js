@@ -1,7 +1,7 @@
-import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState} from './engine.mjs';
+import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels} from './engine.mjs';
 const $=id=>document.getElementById(id);
 const key='uxdesign-pawfect-match-v1';
-let state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[]};
+let state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[],history:[]};
 let storageOK=true,toastTimer;
 try{const saved=localStorage.getItem(key);if(saved)state=restoreState(JSON.parse(saved));}catch{storageOK=false;$('save-status').textContent='Saved data unavailable · session only';}
 const form=$('match-form');
@@ -16,8 +16,9 @@ function render(){const p=state.profile;const ranked=rankBreeds(p);$('exercise-v
  $('results-subtitle').textContent=state.completed?'Made for your routine. Updated with every answer.':'Finish the quiz to reveal your personalized matches.';
  $('care-message').hidden=!needsCarePlan(p);$('care-message').textContent='Care plan needed: you’re away more than 5 hours without support. Scores are capped at 55 until you add a plan. Discuss the individual dog’s needs with a shelter or care professional.';
  const visible=$('only-saved').checked?ranked.filter(x=>state.favorites.includes(x.breed.id)):ranked;
- $('breed-cards').innerHTML=visible.length?visible.map(({breed:b,score,fit})=>`<article class="breed-card"><button class="favorite" data-save="${b.id}" aria-label="Save ${b.name}" aria-pressed="${state.favorites.includes(b.id)}">${state.favorites.includes(b.id)?'♥':'♡'}</button><span class="score">${score}% lifestyle fit</span><h3>${b.name}</h3><p class="tags">${b.size} · ${b.exercise} min activity target</p><p>${b.description}</p><ul><li>${fit.activity===100?'Your activity time meets this profile’s target.':'This profile needs more activity than you planned.'}</li><li>${fit.grooming===100?'Coat care fits your commitment.':'Coat care exceeds your grooming preference.'}</li>${fit.training<100?'<li>Needs more enrichment time than you selected.</li>':''}${fit.size<100?'<li>Outside your preferred size.</li>':''}</ul><p><strong>Think about:</strong> ${b.watch}</p><a href="${b.url}">Read the AKC breed profile ↗</a><label class="check-label"><input type="checkbox" data-compare="${b.id}" ${state.compare.includes(b.id)?'checked':''}> Compare ${b.name}</label></article>`).join(''):'<div class="empty"><h3>Your shortlist is empty.</h3><p>Uncheck “Show saved dogs only” and tap a heart to save a dog.</p></div>';
+ $('breed-cards').innerHTML=visible.length?visible.map(({breed:b,score,fit})=>`<article class="breed-card"><img class="breed-photo" src="photos/${b.id}.jpg" alt="${b.name} breed example" loading="lazy" width="600" height="400"><button class="favorite" data-save="${b.id}" aria-label="Save ${b.name}" aria-pressed="${state.favorites.includes(b.id)}">${state.favorites.includes(b.id)?'♥':'♡'}</button><span class="score">${score}% lifestyle fit</span><h3>${b.name}</h3><p class="tags">${b.size} · ${b.exercise} min activity target</p><p>${b.description}</p><ul><li>${fit.activity===100?'Your activity time meets this profile’s target.':'This profile needs more activity than you planned.'}</li><li>${fit.grooming===100?'Coat care fits your commitment.':'Coat care exceeds your grooming preference.'}</li>${fit.training<100?'<li>Needs more enrichment time than you selected.</li>':''}${fit.size<100?'<li>Outside your preferred size.</li>':''}</ul><p><strong>Think about:</strong> ${b.watch}</p><a href="${b.url}">Read the AKC breed profile ↗</a><label class="check-label"><input type="checkbox" data-compare="${b.id}" ${state.compare.includes(b.id)?'checked':''}> Compare ${b.name}</label></article>`).join(''):'<div class="empty"><h3>Your shortlist is empty.</h3><p>Uncheck “Show saved dogs only” and tap a heart to save a dog.</p></div>';
  renderChart(ranked);
+ renderDiscovery();
 }
 function renderChart(ranked=rankBreeds(state.profile)){
  $('comparison').hidden=!state.completed||state.compare.length===0;
@@ -33,5 +34,42 @@ $('breed-cards').addEventListener('click',event=>{const button=event.target.clos
 $('breed-cards').addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-compare]'))return;const id=input.dataset.compare;if(input.checked&&state.compare.length>=3){input.checked=false;toast('Choose up to 3 dogs. Uncheck one before adding another.');return;}state.compare=input.checked?[...state.compare,id]:state.compare.filter(x=>x!==id);persist();renderChart();});
 $('metric').addEventListener('change',()=>renderChart());$('only-saved').addEventListener('change',()=>render());
 $('edit').addEventListener('click',()=>{state.step=0;persist();showStep();$('quiz').scrollIntoView({behavior:'smooth'});form.elements.home.focus({preventScroll:true});});
-$('reset').addEventListener('click',()=>{try{localStorage.removeItem(key);}catch{}state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[]};for(const [name,value] of Object.entries(state.profile))form.elements.namedItem(name).value=value;$('only-saved').checked=false;$('metric').value='score';showStep();render();$('save-status').textContent='Saved data cleared';toast('Your answers and shortlist have been cleared.');});
+$('reset').addEventListener('click',()=>{try{localStorage.removeItem(key);}catch{}state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[],history:[]};for(const [name,value] of Object.entries(state.profile))form.elements.namedItem(name).value=value;$('only-saved').checked=false;$('metric').value='score';showStep();render();$('save-status').textContent='Saved data cleared';toast('Your answers and shortlist have been cleared.');});
+
+// Pointer gestures, keyboard arrows, and buttons all use the same decision handler.
+function renderDiscovery() {
+ const queue=discoveryQueue(state.profile,state.history),current=queue[0];
+ $('discover-fluff').value=state.profile.fluff;
+ const likes=state.history.filter(d=>d.choice==='like').length;
+ $('learning-status').textContent=state.history.length?`${state.history.length} of ${breeds.length} explored · ${likes} liked. Next picks blend your coat, size, and activity choices.`:'Your first pick starts with lifestyle fit and coat preference. Every like or pass helps shape the next one.';
+ $('undo-swipe').disabled=state.history.length===0;
+ $('restart-swipes').disabled=state.history.length===0;
+ $('like-dog').disabled=!current;$('pass-dog').disabled=!current;
+ $('swipe-card').classList.toggle('deck-empty',!current);
+ $('swipe-card').style.transform='';
+ if(!current){$('swipe-card').innerHTML=`<div class="deck-finished"><span>✿</span><h3>You’ve met the whole pack.</h3><p>${likes} liked out of ${breeds.length}. Your favorites are saved. Restart to try a new direction or change your lifestyle answers below.</p><a href="#matches">View your matches ↓</a></div>`;return;}
+ const {breed:b,score}=current;
+ const coat=fluffLevels[b.id]>=2?'Fluffy coat':'Sleek coat';
+ $('swipe-card').innerHTML=`<img src="photos/${b.id}.jpg" alt="${b.name} breed example" draggable="false" width="900" height="650"><div class="swipe-overlay"><span class="swipe-count">${state.history.length+1} / ${breeds.length}</span><span class="swipe-fit">${score}% lifestyle fit</span><h3>${b.name}</h3><p>${coat} · ${b.size} · ${b.exercise} min activity target</p></div><div class="swipe-feedback" aria-hidden="true"></div>`;
+}
+function decide(choice) {
+ const current=discoveryQueue(state.profile,state.history)[0];if(!current)return;
+ const id=current.breed.id,wasSaved=state.favorites.includes(id);
+ state.history.push({id,choice,wasSaved});
+ state.favorites=choice==='like'?[...new Set([...state.favorites,id])]:state.favorites.filter(x=>x!==id);
+ persist();render();toast(`${choice==='like'?'Liked':'Passed'} ${current.breed.name}. ${state.history.length===breeds.length?'You’ve met the whole pack.':'Your next pick is updated.'}`);
+}
+$('like-dog').addEventListener('click',()=>decide('like'));
+$('pass-dog').addEventListener('click',()=>decide('pass'));
+$('discover-fluff').addEventListener('change',()=>{form.elements.fluff.value=$('discover-fluff').value;updateProfile();});
+$('undo-swipe').addEventListener('click',()=>{const last=state.history.pop();if(!last)return;state.favorites=last.wasSaved?[...new Set([...state.favorites,last.id])]:state.favorites.filter(id=>id!==last.id);persist();render();toast('Last choice undone.');});
+$('restart-swipes').addEventListener('click',()=>{state.history=[];persist();render();toast('New round started. Saved favorites kept.');});
+$('swipe-card').addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();decide(event.key==='ArrowRight'?'like':'pass');}});
+let gesture=null;
+$('swipe-card').addEventListener('pointerdown',event=>{if(event.button!==0||!event.target.closest('img'))return;gesture={x:event.clientX,y:event.clientY,id:event.pointerId};$('swipe-card').setPointerCapture(event.pointerId);});
+$('swipe-card').addEventListener('pointermove',event=>{if(!gesture||event.pointerId!==gesture.id)return;const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>20){cancelGesture();return;}const card=$('swipe-card');card.style.transform=`translateX(${Math.max(-120,Math.min(120,dx))}px) rotate(${dx/25}deg)`;const feedback=card.querySelector('.swipe-feedback');if(feedback){feedback.textContent=Math.abs(dx)>35?(dx>0?'LIKE ♡':'PASS ✕'):'';feedback.classList.toggle('passing',dx<0);}});
+function cancelGesture(){gesture=null;$('swipe-card').style.transform='';const feedback=$('swipe-card').querySelector('.swipe-feedback');if(feedback)feedback.textContent='';}
+$('swipe-card').addEventListener('pointerup',event=>{if(!gesture)return;const dx=event.clientX-gesture.x,dy=event.clientY-gesture.y;cancelGesture();if(Math.abs(dx)>=70&&Math.abs(dx)>Math.abs(dy)*1.2)decide(dx>0?'like':'pass');});
+$('swipe-card').addEventListener('pointercancel',cancelGesture);
+
 showStep();render();

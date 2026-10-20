@@ -19,7 +19,8 @@ modules are restricted when opening an HTML file directly with `file://`.
 - `style.css`: responsive cream, terracotta, and sage interface.
 - `app.js`: form events, persistent state, rendering, favorites, comparison.
 - `engine.mjs`: validated profile data, deterministic scoring, saved-state recovery.
-- `dog.svg`: original locally bundled illustration; no remote images or font requests.
+- `dog.svg`: original locally bundled illustration.
+- `photos/`: six bundled breed photos and source/license metadata in `credits.json`. Photo attribution also appears in the website’s sources disclosure. No runtime image API or font requests.
 - `../../AI_LOG.txt`: AI disclosure, exact prompt, real fixes, and architecture.
 - `../../tests/dog-match.test.mjs`: regression tests, run with Node's built-in runner.
 
@@ -35,3 +36,19 @@ modules are restricted when opening an HTML file directly with `file://`.
 Answers stay in localStorage on the current device/browser/origin. The clear-data
 button removes only this project's storage key. Breed profiles are simplified
 teaching data, with source links and limitations explained in the UI.
+
+## Photo discovery
+
+Open `#discover` to start without finishing the quiz. Swipe/drag the photo right
+or left, use Like/Pass buttons, or focus the card and use arrow keys. Likes save
+the breed to favorites; passes remove it from favorites. The next unseen breed is
+ranked using 65% lifestyle fit, 20% explicit fluffy/sleek preference, and 15% learned
+trait similarity (coat appearance 50%, size 25%, activity target 25%). The learning
+term strengthens over the first three choices. The displayed lifestyle score
+remains independent of appearance. This is a local deterministic recommender,
+not a runtime AI service.
+
+Each breed appears once per round. Undo restores the last decision’s prior favorite
+state. Restart clears swipe history but retains favorites and quiz answers. The
+same coat preference is available in the quiz and stays synchronized with the deck.
+Old saved profiles migrate to an open coat preference and empty swipe history.

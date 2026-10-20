@@ -27,3 +27,23 @@ test('corrupt persisted lists and numerical values cannot break charts or scores
  assert.throws(()=>restoreState({version:2}));
  assert.deepEqual(normalizeProfile(null),defaults);
 });
+
+test('coat preference and likes/pass votes adapt the unseen queue',async()=>{
+ const {discoveryQueue}=await import('../public/dog-match/engine.mjs');
+ const fluffy=discoveryQueue({...defaults,fluff:'fluffy'});
+ const sleek=discoveryQueue({...defaults,fluff:'sleek'});
+ const get=(rows,id)=>rows.find(x=>x.breed.id===id).discoveryScore;
+ assert(get(fluffy,'havanese')>get(sleek,'havanese'));
+ assert(get(sleek,'whippet')>get(fluffy,'whippet'));
+ const liked=discoveryQueue(defaults,[{id:'havanese',choice:'like'}]);
+ const passed=discoveryQueue(defaults,[{id:'havanese',choice:'pass'}]);
+ assert(get(liked,'poodle')>get(passed,'poodle'));
+ assert(get(passed,'whippet')>get(liked,'whippet'));
+ assert(!liked.some(x=>x.breed.id==='havanese'));
+ assert.equal(discoveryQueue(defaults,breeds.map(b=>({id:b.id,choice:'pass'}))).length,0);
+});
+test('old saved state migrates; duplicate or invalid swipe records are dropped',()=>{
+ const old=restoreState({version:1,profile:defaults});assert.deepEqual(old.history,[]);assert.equal(old.profile.fluff,'any');
+ const saved=restoreState({version:1,history:[{id:'poodle',choice:'like',wasSaved:true},{id:'poodle',choice:'pass'},{id:'bogus',choice:'like'},{id:'collie',choice:'hack'}]});
+ assert.deepEqual(saved.history,[{id:'poodle',choice:'like',wasSaved:true}]);
+});

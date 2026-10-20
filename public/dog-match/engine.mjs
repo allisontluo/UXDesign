@@ -7,8 +7,8 @@ export const breeds = [
  {id:'collie',name:'Border Collie',size:'medium',exercise:120,training:3,grooming:2,shedding:3,space:2,experience:2,description:'A focused working partner who thrives with a job to do.',watch:'Needs substantial mental enrichment as well as physical activity.',url:'https://www.akc.org/dog-breeds/border-collie/'},
  {id:'greyhound',name:'Greyhound',size:'large',exercise:60,training:1,grooming:1,shedding:2,space:1,experience:1,description:'A gentle, independent hound with a sprinter’s spirit.',watch:'Ask about safe off-leash areas and compatibility with small animals.',url:'https://www.akc.org/dog-breeds/greyhound/'}
 ];
-export const defaults = {home:'apartment',size:'any',experience:'new',exercise:60,alone:4,support:'none',training:2,grooming:1,shedding:'any',priority:'balanced'};
-const choices={home:['apartment','house'],size:['any','small','medium','large'],experience:['new','experienced'],support:['none','yes'],shedding:['any','low'],priority:['balanced','activity','coat','size']};
+export const defaults = {home:'apartment',size:'any',experience:'new',exercise:60,alone:4,support:'none',training:2,grooming:1,shedding:'any',priority:'balanced',fluff:'any'};
+const choices={fluff:['any','fluffy','sleek'],home:['apartment','house'],size:['any','small','medium','large'],experience:['new','experienced'],support:['none','yes'],shedding:['any','low'],priority:['balanced','activity','coat','size']};
 export function normalizeProfile(raw={}) {
  if(!raw || typeof raw!=="object") raw={};
  const p={...defaults};
@@ -34,5 +34,35 @@ export function restoreState(raw) {
  if(!raw||typeof raw!=='object'||raw.version!==1)throw new Error('Unrecognized saved data');
  const ids=new Set(breeds.map(b=>b.id));
  const list=value=>Array.isArray(value)?[...new Set(value.filter(id=>ids.has(id)))]:[];
- return {version:1,profile:normalizeProfile(raw.profile),step:Number.isInteger(raw.step)&&raw.step>=0&&raw.step<=2?raw.step:0,completed:raw.completed===true,favorites:list(raw.favorites),compare:list(raw.compare).slice(0,3)};
+ return {version:1,profile:normalizeProfile(raw.profile),step:Number.isInteger(raw.step)&&raw.step>=0&&raw.step<=2?raw.step:0,completed:raw.completed===true,favorites:list(raw.favorites),compare:list(raw.compare).slice(0,3),history:normalizeHistory(raw.history)};
+}
+
+// Coat appearance is separate from grooming and shedding. A fluffy dog may shed little.
+export const fluffLevels = {havanese:3,whippet:0,labrador:0,poodle:3,collie:2,greyhound:0};
+export function normalizeHistory(raw) {
+ if(!Array.isArray(raw))return [];
+ const seen=new Set();
+ return raw.filter(item=>item&&breeds.some(b=>b.id===item.id)&&['like','pass'].includes(item.choice)&&!seen.has(item.id)&&seen.add(item.id))
+  .map(item=>({id:item.id,choice:item.choice,wasSaved:item.wasSaved===true}));
+}
+function similarity(a,b) {
+ const sizes={small:0,medium:1,large:2};
+ return ((1-Math.abs(fluffLevels[a.id]-fluffLevels[b.id])/3)*0.5+
+  (1-Math.abs(sizes[a.size]-sizes[b.size])/2)*0.25+
+  (1-Math.abs(a.exercise-b.exercise)/105)*0.25)*100;
+}
+export function discoveryQueue(profile,history=[]) {
+ const p=normalizeProfile(profile), decisions=normalizeHistory(history);
+ const seen=new Set(decisions.map(d=>d.id));
+ return rankBreeds(p).filter(row=>!seen.has(row.breed.id)).map(row=>{
+  const coat=p.fluff==='any'?50:p.fluff==='fluffy'?fluffLevels[row.breed.id]/3*100:(3-fluffLevels[row.breed.id])/3*100;
+  // Likes favor similar traits; passes favor different ones. Each vote has equal weight.
+  const learned=decisions.length?decisions.reduce((sum,d)=>{
+   const prior=breeds.find(b=>b.id===d.id), match=similarity(row.breed,prior);
+   return sum+(d.choice==='like'?match:100-match);
+  },0)/decisions.length:50;
+  const confidence=Math.min(decisions.length/3,1);
+  const discoveryScore=row.uncappedScore*0.65+coat*0.2+(learned*confidence+50*(1-confidence))*0.15;
+  return {...row,discoveryScore};
+ }).sort((a,b)=>b.discoveryScore-a.discoveryScore||a.breed.name.localeCompare(b.breed.name));
 }
