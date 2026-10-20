@@ -1,3 +1,18 @@
+# UX Design projects
+
+## New: Pawfect Match
+
+A responsive dog lifestyle matcher built with HTML, CSS, and vanilla JavaScript.
+Take a three-step quiz, see live weighted matches, save favorites across reloads,
+and compare up to three breeds in an interactive chart.
+
+- Website: https://allisontluo.github.io/UXDesign/dog-match/
+- Source and local preview: `public/dog-match/README.md`
+- Assignment AI disclosure and code defense: `AI_LOG.txt`
+- Regression tests: `node --test tests/dog-match.test.mjs`
+
+The existing Wikipedia project is retained below and remains the homepage.
+
 # Wikipedia website study
 
 Website redesigned from pages copied from Wikipedia on September 23, 2026:

@@ -1,0 +1,73 @@
+Pawfect Match — Unit 2 Project, Part 1
+Date: October 20, 2026
+
+AI TOOLING DISCLOSURE
+OpenAI Codex assisted with reading the supplied assignment photographs, planning,
+HTML/CSS/JavaScript implementation, an original SVG illustration, debugging,
+automated tests, browser checks, and project documentation. No runtime AI API,
+backend, framework, or third-party JavaScript dependency is used by the app.
+The student should review and understand the code before defending/submitting it.
+
+EXACT USER PROMPT FOR THE IMPLEMENTATION
+“add a new project to this: [https://github.com/allisontluo/UXDesign](https://github.com/allisontluo/UXDesign) , this will be creating a website matching a person with the kind of dog, based on the instructions, use HTML to code”
+The user also supplied IMG_8929.HEIC and IMG_8930.HEIC showing the assignment.
+There were no separate user-authored prompts for individual components. The
+assistant planned the quiz, scoring, persistence, and comparison from this prompt
+and the supplied requirements. This log does not invent additional prompts.
+
+CODE CORRECTIONS & REFINEMENTS (ACTUAL OBSERVED ISSUES)
+1. Corrupt saved profile handling:
+   The first normalizeProfile(raw = {}) implementation handled undefined but not
+   null. A regression test calling normalizeProfile(null) failed with a TypeError
+   when reading raw.home. Fixed by coercing missing/non-object profile inputs to
+   an empty object before validating fields. The same test now passes. Stored
+   version, numerical ranges, favorite IDs, duplicate IDs, and comparison count
+   are also validated before restored state reaches the UI.
+2. Capped-score ranking:
+   Browser testing set hours away to 10 without a care plan. All displayed scores
+   became 55 and the original sort broke ties alphabetically, incorrectly putting
+   Border Collie ahead of better-fitting profiles. Fixed by retaining the uncapped
+   weighted score as a secondary sorting key, using breed name only for true ties.
+   Added a regression assertion that the cap preserves the top underlying match.
+   Browser reload confirmed Greyhound/Whippet returned to the top.
+
+ARCHITECTURE / DATA FLOW
+Semantic HTML supplies the three-step form; CSS supplies responsive layouts and
+accessible focus indicators. app.js reads form values into a normalized profile,
+then engine.mjs evaluates six local breed profiles across seven dimensions and
+returns ranked fit scores. Input events redraw the live shortlist, completed
+results, and comparison bars. A conditional care-plan question appears for more
+than five hours away. Without support, all scores are capped at 55, while underlying
+scores preserve relative rankings. Selecting a priority changes the weights.
+Favorites, answers, quiz step, completion, and comparison IDs persist as a versioned
+JSON object in localStorage. Storage errors show a session-only message. A corrupt
+record is ignored safely. Comparison metric and saved-only display filter are
+transient view controls. No answers leave the browser. Rendering uses only validated
+choices and fixed developer-authored breed text, never arbitrary user HTML.
+
+ASSIGNMENT REQUIREMENTS
+- State management & persistence: localStorage for quiz and shortlist across reloads.
+- Dynamic calculations: weighted scoring and live updates when answers change.
+- Interactive visualization: selectable dogs and selectable comparison metric.
+- Branching workflow: three steps; long-day answers reveal a care-support question
+  and alter score eligibility; changing support removes the cap.
+- Responsive layouts: desktop, tablet, and phone CSS breakpoints.
+- UI states: initial quiz/empty shortlist; completed results; saved-only empty
+  state; storage failure message; toast feedback; comparison-limit feedback.
+  Calculations are synchronous and local, so there is no artificial loading delay.
+
+SCORING AND CONTENT LIMITS
+This is a transparent educational matching prototype, not adoption eligibility or
+medical advice. Numerical activity targets and commitment levels are project
+estimates for adult dogs, not AKC scores or individualized prescriptions. Six breed
+profiles cannot represent all possible dogs. Individual temperament, age, health,
+training, household members, and care arrangements require a real conversation.
+Breed source links and weighting details are available in the website itself.
+
+VALIDATION
+Run: node --test tests/dog-match.test.mjs
+Four automated tests cover combinations of scores, changed preferences, the
+care-plan cap and sorting, and corrupt persisted data. Browser checks cover the
+three-step workflow, the long-day branch, favorites, reload persistence, the
+comparison limit, metric selection, and responsive layout. No student testing or
+independent review is claimed by this log.
