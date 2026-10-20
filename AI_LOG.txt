@@ -218,3 +218,13 @@ profiles, five new household inputs change rankings, the fourth-step finish open
 discovery, searches work across 51 types, Greyhound is labeled short/sleek with a
 coat mismatch in the all-types catalog, and switching to shorter coats changes the
 shortlist accordingly. No runtime AI or backend was added.
+
+READABILITY AND WORDING UPDATE
+User: “make the font bigger so its easier to read” and “change this wording as
+well” pointing to “Give extra weight to…”. Enlarged question labels, answers,
+slider values/endpoints, supporting text, results, and controls. Slider values
+now sit below the question so longer text can wrap. Changed the label to
+“What matters most to you?”. Updated the stylesheet cache version.
+Browser verification confirmed 18px question/answer text on desktop, 17px on a
+390px phone viewport, readable slider values, the new priority label, and no
+horizontal overflow. Browser viewport override was reset after testing.
