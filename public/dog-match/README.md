@@ -74,3 +74,14 @@ license credits in the website and `photos/credits.json`. Browser storage holds
 answers, favorites, comparisons, and swipe history. Clear-data removes only this
 project's key. Old records remain compatible; new household fields default to
 neutral values. Storage errors fall back to session-only behavior.
+
+## Visible match profiles
+
+Liked dogs appear as photo cards directly under “Your matches”, without opening
+the all-types catalog. `profiles.mjs` contains a stable fictional name, age, and
+interests for each type, including Ginger, age 5, the fetch-loving Golden Retriever.
+A sample-profile notice distinguishes these examples from real adoption listings
+or verified facts about the pictured dogs. Scores still use dog-type estimates.
+Each card has About details, save/remove, and comparison controls. With no likes,
+the grid shows three suggestions that respect the coat filter. My matches
+navigation and a link beneath swiping make the section easy to find.

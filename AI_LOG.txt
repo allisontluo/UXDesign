@@ -233,3 +233,26 @@ swipe photo. Changed swipe, catalog, and comparison images to contain their full
 source frame. Removed comparison zoom transforms. Moved swipe metadata below
 the image so it does not cover the dog. Existing close-up source photos remain
 close-ups; this change shows everything available in each original photo.
+
+VISIBLE MATCH PROFILES
+User: “where are my matches, show photos of them and make profiles for them like
+ginger, age 5, likes to play fetch, golden retreiver”.
+Liked dogs previously appeared only in the collapsed all-types catalog. Added a
+visible matches grid above that catalog, plus My matches navigation and a direct
+link below swiping. All existing favorite IDs map to the new cards automatically.
+If there are no likes, three coat-matching suggestions are shown instead.
+
+profiles.mjs gives all 51 types stable fictional example names, ages, and interests.
+Golden Retriever is Ginger, age 5, who likes fetch. Cards show the full source photo,
+name, age, type, fit score, interests, expandable About details, save/remove, and
+comparison controls. Swipe cards use the same identity. A clear sample-profile
+notice and profile details distinguish invented names/ages/interests from verified
+facts about pictured dogs; these are not real adoption listings. Breed-based fit
+scores remain separate from the fictional identity details.
+
+Save and compare handlers work in both the visible profile cards and all-types
+catalog, and duplicate comparison checkboxes stay synchronized. The care-plan
+warning now appears above profiles. Eleven automated tests pass, including profile
+coverage and the requested Ginger/age-5/fetch example. Browser checks verified
+saving Ginger makes her card appear, About details open, matching comparison
+checkboxes stay synchronized, and liked profiles survive reload.

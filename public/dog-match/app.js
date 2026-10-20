@@ -1,3 +1,4 @@
+import {dogProfiles} from './profiles.mjs?v=11';
 import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels,matchesCoat} from './engine.mjs?v=8';
 const $=id=>document.getElementById(id);
 const key='uxdesign-pawfect-match-v1';
@@ -17,16 +18,29 @@ function render(){$('browse-label').textContent=`Browse all ${breeds.length} dog
  $('matches').hidden=!state.completed;
  $('discover').hidden=!state.completed;
  $('discover-nav').hidden=!state.completed;
+ $('matches-nav').hidden=!state.completed;
  $('discover-locked').hidden=state.completed;
  $('results-placeholder').hidden=state.completed;$('results-content').hidden=!state.completed;
- $('results-subtitle').textContent=state.completed?'Made for your routine. Updated with every answer.':'Finish the quiz to reveal your personalized matches.';
+ $('results-subtitle').textContent=state.completed?'Your liked dogs, with photos and sample profiles.':'Finish the quiz to reveal your personalized matches.';
  $('care-message').hidden=!needsCarePlan(p);$('care-message').textContent='Care plan needed: you’re away more than 5 hours without support. Scores are capped at 55 until you add a plan. Discuss the individual dog’s needs with a shelter or care professional.';
  const query=$('breed-search').value.toLowerCase().replace(/[^a-z0-9]/g,'');
  const visible=ranked.filter(x=>(!$('only-saved').checked||state.favorites.includes(x.breed.id))&&x.breed.name.toLowerCase().replace(/[^a-z0-9]/g,'').includes(query));
  $('catalog-count').textContent=`${visible.length} of ${breeds.length} dog types`;
  $('breed-cards').innerHTML=visible.length?visible.map(({breed:b,score,fit})=>`<article class="breed-card"><img class="breed-photo" src="photos/${b.id}.jpg?v=8" alt="${b.name} breed example" loading="lazy" width="600" height="400"><button class="favorite" data-save="${b.id}" aria-label="Save ${b.name}" aria-pressed="${state.favorites.includes(b.id)}">${state.favorites.includes(b.id)?'♥':'♡'}</button><span class="score">${score}% profile fit</span><h3>${b.name}</h3><p class="tags">${b.size} · ${fluffLevels[b.id]>=2?'fluffy':'short / sleek'} · ${b.exercise} min activity target</p><p>${b.description}</p><ul>${fit.coat===0?'<li>Outside your selected coat preference.</li>':''}${fit.children<100?'<li>Discuss child interactions and handling with a professional.</li>':''}${fit.pets<100?'<li>Needs an individual compatibility assessment with your pets.</li>':''}${fit.barking<100?'<li>May be more vocal than you prefer.</li>':''}${fit.drool<100?'<li>May drool more than you prefer.</li>':''}<li>${fit.activity===100?'Your activity time meets this profile’s target.':'This profile needs more activity than you planned.'}</li><li>${fit.grooming===100?'Coat care fits your commitment.':'Coat care exceeds your grooming preference.'}</li>${fit.training<100?'<li>Needs more enrichment time than you selected.</li>':''}${fit.size<100?'<li>Outside your preferred size.</li>':''}</ul><p><strong>Think about:</strong> ${b.watch}</p><a href="${b.url}">Read the breed or mix profile ↗</a><label class="check-label"><input type="checkbox" data-compare="${b.id}" ${state.compare.includes(b.id)?'checked':''}> Compare ${b.name}</label></article>`).join(''):'<div class="empty"><h3>No dogs match these filters.</h3><p>Clear the search or turn off saved-only to browse more dogs.</p></div>';
+ renderMatchProfiles(ranked);
  renderChart(ranked);
  renderDiscovery();
+}
+function renderMatchProfiles(ranked) {
+ const liked=ranked.filter(row=>state.favorites.includes(row.breed.id));
+ const rows=liked.length?liked:ranked.filter(row=>matchesCoat(row.breed,state.profile)).slice(0,3);
+ $('match-list-title').textContent=liked.length?`Your liked dogs (${liked.length})`:'Suggested matches';
+ $('match-list-note').textContent=liked.length?'Every dog you like appears here automatically. Open a profile to learn more.':'You haven’t liked a dog yet. Start with these suggestions, or swipe above to build your list.';
+ $('matches-shortcut').textContent=liked.length?`View my matches (${liked.length}) ↓`:'View suggested matches ↓';
+ $('match-profiles').innerHTML=rows.map(({breed:b,score})=>{
+  const dog=dogProfiles[b.id];
+  return `<article class="match-profile" aria-label="${dog.name}, sample ${b.name} profile"><img class="match-photo" src="photos/${b.id}.jpg?v=8" alt="${b.name} example for ${dog.name}’s sample profile" loading="lazy" width="600" height="500"><div class="match-profile-body"><button class="favorite" data-save="${b.id}" aria-label="${state.favorites.includes(b.id)?'Remove':'Save'} ${dog.name}" aria-pressed="${state.favorites.includes(b.id)}">${state.favorites.includes(b.id)?'♥':'♡'}</button><span class="score">${score}% profile fit</span><h3>${dog.name} <span>age ${dog.age}</span></h3><p class="profile-breed">${b.name}</p><p class="profile-likes"><strong>Loves:</strong> ${dog.likes}.</p><details class="profile-details"><summary>About ${dog.name}</summary><p>This is a fictional example profile for ${dog.name}, a ${dog.age}-year-old ${b.name}. ${dog.name}’s favorite things include ${dog.likes.charAt(0).toLowerCase()+dog.likes.slice(1)}.</p><p><strong>About the dog type:</strong> ${b.description}</p><p><strong>Care to consider:</strong> ${b.watch}</p><p class="hint">Name, age, and interests are examples, not verified facts about the pictured dog. Fit scores use the representative dog-type data.</p><a href="${b.url}">Read the dog-type guide ↗</a></details><label class="check-label"><input type="checkbox" data-compare="${b.id}" ${state.compare.includes(b.id)?'checked':''}> Compare ${dog.name}</label></div></article>`;
+ }).join('');
 }
 function renderChart(ranked=rankBreeds(state.profile)){
  $('comparison').hidden=!state.completed||state.compare.length===0;
@@ -38,8 +52,8 @@ $('next').addEventListener('click',()=>{state.step=Math.min(LAST_STEP,state.step
 $('back').addEventListener('click',()=>{state.step=Math.max(0,state.step-1);persist();showStep(true);});
 // Enter on an earlier step advances instead of bypassing the quiz.
 form.addEventListener('submit',event=>{event.preventDefault();if(state.step<LAST_STEP){state.step++;persist();showStep(true);return;}state.completed=true;persist();render();$('discover').scrollIntoView({behavior:'smooth'});$('discovery-title').tabIndex=-1;$('discovery-title').focus({preventScroll:true});toast('Your matches are ready. Swipe right to like or left to pass.');});
-$('breed-cards').addEventListener('click',event=>{const button=event.target.closest('[data-save]');if(!button)return;const id=button.dataset.save;const saved=state.favorites.includes(id);state.favorites=saved?state.favorites.filter(x=>x!==id):[...state.favorites,id];persist();render();const replacement=document.querySelector(`[data-save="${id}"]`);if(replacement)replacement.focus();else $('only-saved').focus();toast(saved?'Removed from your shortlist.':'Saved to your shortlist.');});
-$('breed-cards').addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-compare]'))return;const id=input.dataset.compare;if(input.checked&&state.compare.length>=3){input.checked=false;toast('Choose up to 3 dogs. Uncheck one before adding another.');return;}state.compare=input.checked?[...state.compare,id]:state.compare.filter(x=>x!==id);persist();renderChart();});
+['breed-cards','match-profiles'].forEach(container=>$(container).addEventListener('click',event=>{const button=event.target.closest('[data-save]');if(!button)return;const id=button.dataset.save;const saved=state.favorites.includes(id);state.favorites=saved?state.favorites.filter(x=>x!==id):[...state.favorites,id];persist();render();const replacement=document.querySelector(`[data-save="${id}"]`);if(replacement)replacement.focus();else $('only-saved').focus();toast(saved?'Removed from your matches.':'Saved to your matches.');}));
+['breed-cards','match-profiles'].forEach(container=>$(container).addEventListener('change',event=>{const input=event.target;if(!input.matches('[data-compare]'))return;const id=input.dataset.compare;if(input.checked&&state.compare.length>=3){input.checked=false;toast('Choose up to 3 dogs. Uncheck one before adding another.');return;}state.compare=input.checked?[...state.compare,id]:state.compare.filter(x=>x!==id);document.querySelectorAll(`[data-compare="${id}"]`).forEach(el=>el.checked=input.checked);persist();renderChart();}));
 $('metric').addEventListener('change',()=>renderChart());$('only-saved').addEventListener('change',()=>render());
 $('breed-search').addEventListener('input',()=>render());
 $('edit').addEventListener('click',()=>{state.step=0;persist();showStep();$('quiz').scrollIntoView({behavior:'smooth'});form.elements.home.focus({preventScroll:true});});
@@ -60,8 +74,9 @@ function renderDiscovery() {
  $('swipe-card').style.transform='';
  if(!current){$('swipe-card').innerHTML=`<div class="deck-finished"><span>✿</span><h3>You’ve met your matching pack.</h3><p>${likes} liked out of ${eligible.length} matching types. Your favorites are saved. Restart to try a new direction or change your answers above.</p><a href="#matches">View your matches ↓</a></div>`;return;}
  const {breed:b,score}=current;
+ const dog=dogProfiles[b.id];
  const coat=b.coatLabel||(fluffLevels[b.id]>=2?'Fluffy coat':'Sleek coat');
- $('swipe-card').innerHTML=`<img src="photos/${b.id}.jpg?v=8" alt="${b.name} breed example" draggable="false" width="900" height="650"><div class="swipe-overlay"><span class="swipe-count">${relevant.length+1} / ${eligible.length}</span><span class="swipe-fit">${score}% profile fit</span><h3>${b.name}</h3><p>${coat} · ${b.size} · ${b.exercise} min activity target</p></div><div class="swipe-feedback" aria-hidden="true"></div>`;
+ $('swipe-card').innerHTML=`<img src="photos/${b.id}.jpg?v=8" alt="${b.name} breed example" draggable="false" width="900" height="650"><div class="swipe-overlay"><span class="swipe-count">${relevant.length+1} / ${eligible.length}</span><span class="swipe-fit">${score}% profile fit</span><h3>${dog.name}, age ${dog.age}</h3><p class="swipe-breed">${b.name}</p><p class="swipe-interest">Loves ${dog.likes.charAt(0).toLowerCase()+dog.likes.slice(1)}</p><p>${coat} · ${b.size} · ${b.exercise} min activity target</p></div><span class="sample-chip">Sample profile</span><div class="swipe-feedback" aria-hidden="true"></div>`;
 }
 function decide(choice) {
  const current=discoveryQueue(state.profile,state.history)[0];if(!current)return;
