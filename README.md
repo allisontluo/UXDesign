@@ -3,8 +3,8 @@
 ## New: Pawfect Match
 
 A responsive dog lifestyle matcher built with HTML, CSS, and vanilla JavaScript.
-Take a three-step quiz, see live weighted matches, save favorites across reloads,
-and compare up to three breeds in an interactive chart.
+Take a four-step quiz, see live weighted matches, save favorites across reloads,
+and compare up to three breeds in an interactive chart. The catalog includes 51 dog types with photos; coat and household preferences affect the recommendations.
 
 - Website: https://allisontluo.github.io/UXDesign/dog-match/
 - Source and local preview: `public/dog-match/README.md`

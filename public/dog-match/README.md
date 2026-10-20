@@ -1,71 +1,76 @@
 # Pawfect Match
 
-A buildless HTML, CSS, and JavaScript dog lifestyle matcher for Unit 2, Part 1.
+A buildless HTML, CSS, and vanilla JavaScript dog matcher with 51 representative
+breed, size-variety, and mix profiles. No runtime AI service or backend is used.
 
-## Run
+## Run and test
 
 From the repository root:
 
 ```sh
 python3 -m http.server 8080 --directory public
+node --test tests/dog-match.test.mjs
 ```
 
-Open `http://localhost:8080/dog-match/`. Use an HTTP server because native JavaScript
-modules are restricted when opening an HTML file directly with `file://`.
+Open `http://localhost:8080/dog-match/`. The retained Java server also works:
+`java src/Main.java`. Use HTTP rather than opening the HTML with `file://` because
+the app uses native JavaScript modules.
 
-## Files
+## Experience
 
-- `index.html`: semantic form, result regions, scoring explanation, source links.
-- `style.css`: responsive cream, terracotta, and sage interface.
-- `app.js`: form events, persistent state, rendering, favorites, comparison.
-- `engine.mjs`: validated profile data, deterministic scoring, saved-state recovery.
-- `dog.svg`: original locally bundled illustration.
-- `photos/`: eleven bundled breed photos and source/license metadata in `credits.json`. Photo attribution also appears in the website’s sources disclosure. No runtime image API or font requests.
-- `../../AI_LOG.txt`: AI disclosure, exact prompt, real fixes, and architecture.
-- `../../tests/dog-match.test.mjs`: regression tests, run with Node's built-in runner.
+Complete four short steps: home, routine, preferences, and household. The household
+step adds questions about children, pets, barking, visitors, and drool. A live
+shortlist responds to answers. Completed quizzes unlock photo swiping below the
+questionnaire. Swipe/drag right or left, use Like/Pass buttons, or focus the card
+and use arrow keys. Likes save favorites; passes remove them from favorites.
+Undo restores the last choice's prior favorite state. Restart clears swipe
+learning while keeping the questionnaire and favorites.
 
-## Try it
+Search all 51 types, save favorites, and select up to three dogs to compare. The
+chart can show overall fit, activity, grooming, enrichment, or coat fullness.
 
-1. Answer all three steps and reveal your matches.
-2. Change activity time or prioritize coat care to see rankings change.
-3. Set hours away above five to reveal the care-plan branch.
-4. Save a favorite, reload, and verify it is still saved.
-5. Select up to three breeds; switch the comparison metric.
-6. Filter to saved dogs; clear saved data to return to the initial state.
+## Matching and coat filtering
 
-Answers stay in localStorage on the current device/browser/origin. The clear-data
-button removes only this project's storage key. Breed profiles are simplified
-teaching data, with source links and limitations explained in the UI.
+`engine.mjs` normalizes input and computes weighted scores. Base weights are
+activity 25, enrichment 15, space 10, size 15, grooming 15, shedding 10, and
+experience 10. A selected coat preference adds weight 30. Selected children or pet
+needs add 15 each; quietness, visitor sociability, and lower drool add 10 each.
+Neutral household choices add no weight. A priority doubles relevant base weights,
+then the result is normalized. Long days away without support cap scores at 55.
 
-## Photo discovery
+Coat fullness is an authored visual estimate: 0 sleek, 1 shorter/wiry, 2 full or
+feathered, 3 very full or curly. Grooming and individual variation affect appearance.
+Fluffy-only filters the live shortlist and swipe deck to levels 2–3. Shorter-only
+uses 0–1. Greyhounds and Whippets are level 0 and are excluded from fluffy-only
+recommendations. The full catalog remains searchable, with coat mismatches marked.
 
-Complete the questionnaire first to unlock the discovery section below it. Swipe/drag the photo right
-or left, use Like/Pass buttons, or focus the card and use arrow keys. Likes save
-the breed to favorites; passes remove it from favorites. The next unseen breed is
-ranked using 65% lifestyle fit, 20% explicit fluffy/sleek preference, and 15% learned
-trait similarity (coat appearance 50%, size 25%, activity target 25%). The learning
-term strengthens over the first three choices. The displayed lifestyle score
-remains independent of appearance. This is a local deterministic recommender,
-not a runtime AI service.
+Discovery combines overall profile fit (85%) and learned similarity (15%). Likes
+favor similar coat appearance, size, and activity; passes favor different traits.
+Learning confidence grows over the first three votes. Each matching type appears
+once per round. Progress counts the current matching coat set. Switching filters
+preserves decisions and exposes unseen dogs from the newly selected set.
 
-Each dog type appears once per round. Undo restores the last decision’s prior favorite
-state. Restart clears swipe history but retains favorites and quiz answers. The
-same coat preference is available in the quiz and stays synchronized with the deck.
-Old saved profiles migrate to an open coat preference and empty swipe history.
+All numerical profiles and household tendencies are teaching estimates, not AKC
+ratings, medical prescriptions, or guarantees of individual compatibility/safety.
+Children and other pets need supervised introductions and individual assessment.
+Doodles are mixes with variable sizes and coats. Terrier is represented by a Jack
+Russell Terrier. Poodle sizes are separate type profiles.
 
-## Simplified visual design
+## Files and assets
 
-Soft blue, white, and navy with locally bundled DM Sans (SIL Open Font License).
-The questionnaire is the first task; discovery and match results unlock after it
-is completed. All breed and mix cards are grouped in a disclosure, and comparisons appear
-when breeds have been selected. Old `#discover` links redirect incomplete quizzes
-to `#quiz`. Asset version parameters prevent stale scripts/styles after updates.
+- `index.html`: semantic questionnaire, result regions, and source disclosures.
+- `style.css`: responsive blue, white, and navy design with local DM Sans fonts.
+- `app.js`: form events, state persistence, rendering, gestures, search, comparison.
+- `engine.mjs`: normalization, scoring, coat filtering, and saved-state recovery.
+- `catalog.mjs`: 40 additional profiles and household estimates for all 51 types.
+- `photos/`: bundled images and source/license metadata in `credits.json`.
+- `fonts/OFL.txt`: DM Sans font license.
+- `../../AI_LOG.txt`: exact user prompts, real fixes, and code-defense documentation.
+- `../../tests/dog-match.test.mjs`: ten tests for scores, filters, expanded data,
+  photos, household effects, history continuation, and old/corrupt data recovery.
 
-## Expanded dog types
-
-The catalog now includes 11 types: the original six plus Samoyed, Aussiedoodle,
-Golden Retriever, Goldendoodle, and Jack Russell Terrier. Doodles are mixes with
-variable size and coat traits; numerical values describe representative teaching
-profiles. “Terrier” is represented by a Jack Russell Terrier. The Aussiedoodle
-image was supplied by the user. Existing six-dog swipe histories preserve all
-choices and expose the five new types automatically.
+The Aussiedoodle image was provided by the user; other images have source and
+license credits in the website and `photos/credits.json`. Browser storage holds
+answers, favorites, comparisons, and swipe history. Clear-data removes only this
+project's key. Old records remain compatible; new household fields default to
+neutral values. Storage errors fall back to session-only behavior.

@@ -33,8 +33,12 @@ test('coat preference and likes/pass votes adapt the unseen queue',async()=>{
  const fluffy=discoveryQueue({...defaults,fluff:'fluffy'});
  const sleek=discoveryQueue({...defaults,fluff:'sleek'});
  const get=(rows,id)=>rows.find(x=>x.breed.id===id).discoveryScore;
- assert(get(fluffy,'havanese')>get(sleek,'havanese'));
- assert(get(sleek,'whippet')>get(fluffy,'whippet'));
+ const {fluffLevels}=await import('../public/dog-match/engine.mjs');
+ assert(fluffy.every(x=>fluffLevels[x.breed.id]>=2));
+ assert(sleek.every(x=>fluffLevels[x.breed.id]<=1));
+ assert(!fluffy.some(x=>['greyhound','whippet'].includes(x.breed.id)));
+ assert(fluffy.some(x=>x.breed.id==='samoyed'));
+ assert(sleek.some(x=>x.breed.id==='greyhound'));
  const liked=discoveryQueue(defaults,[{id:'havanese',choice:'like'}]);
  const passed=discoveryQueue(defaults,[{id:'havanese',choice:'pass'}]);
  assert(get(liked,'poodle')>get(passed,'poodle'));
@@ -51,7 +55,7 @@ test('old saved state migrates; duplicate or invalid swipe records are dropped',
 test('expanded catalog has photos, coat values, and preserves the old swipe history',async()=>{
  const {existsSync}=await import('node:fs');
  const {fluffLevels,discoveryQueue}=await import('../public/dog-match/engine.mjs');
- assert.equal(breeds.length,11);
+ assert(breeds.length>=50);
  for(const id of ['samoyed','aussiedoodle','golden','goldendoodle','terrier']) assert(breeds.some(b=>b.id===id));
  for(const b of breeds){
   assert(Number.isFinite(fluffLevels[b.id]));
@@ -59,8 +63,42 @@ test('expanded catalog has photos, coat values, and preserves the old swipe hist
  }
  const original=['havanese','whippet','labrador','poodle','collie','greyhound'];
  const oldHistory=original.map(id=>({id,choice:'pass'}));
- const queue=discoveryQueue({...defaults,fluff:'fluffy'},oldHistory);
- assert.equal(queue.length,5);assert(queue.every(x=>Number.isFinite(x.discoveryScore)&&!original.includes(x.breed.id)));
+ const queue=discoveryQueue(defaults,oldHistory);
+ assert.equal(queue.length,breeds.length-original.length);assert(queue.every(x=>Number.isFinite(x.discoveryScore)&&!original.includes(x.breed.id)));
  const restored=restoreState({version:1,history:oldHistory,favorites:['poodle'],completed:true});
  assert.equal(restored.history.length,6);assert.deepEqual(restored.favorites,['poodle']);assert(restored.completed);
+});
+
+test('household answers change scores and survive restoration',async()=>{
+ const {scoreBreed}=await import('../public/dog-match/engine.mjs');
+ const score=(id,p)=>scoreBreed(breeds.find(b=>b.id===id),{...defaults,...p}).score;
+ assert(score('beagle',{barking:'quiet'})<score('beagle',{}));
+ assert(score('newfoundland',{drool:'low'})<score('newfoundland',{}));
+ assert(score('maltese',{children:'young'})<score('maltese',{}));
+ assert(score('whippet',{pets:'cats'})<score('whippet',{}));
+ assert(score('shiba',{social:'visitors'})<score('shiba',{}));
+ const profile={...defaults,children:'young',pets:'cats',barking:'quiet',social:'visitors',drool:'low'};
+ const restored=restoreState({version:1,step:3,profile,completed:true,favorites:['samoyed']});
+ assert.deepEqual(restored.profile,profile);assert.equal(restored.step,3);assert(restored.completed);
+ assert.deepEqual(restored.favorites,['samoyed']);
+});
+test('every type has unique identity, source, and complete household estimates',async()=>{
+ const {householdTraits,scoreBreed}=await import('../public/dog-match/engine.mjs');
+ assert.equal(new Set(breeds.map(b=>b.id)).size,breeds.length);
+ assert.equal(new Set(breeds.map(b=>b.name)).size,breeds.length);
+ for(const b of breeds){
+  assert(b.url.startsWith('https://'));
+  for(const field of ['children','dogs','prey','bark','social','drool']) assert([1,2,3].includes(householdTraits[b.id][field]),b.id+' '+field);
+  const result=scoreBreed(b,{...defaults,fluff:'fluffy',children:'young',pets:'small',barking:'quiet',social:'visitors',drool:'low'});
+  assert(Number.isFinite(result.score)&&result.score>=0&&result.score<=100);
+ }
+});
+test('coat filter stays consistent throughout a whole swipe round and can be changed',async()=>{
+ const {discoveryQueue,fluffLevels}=await import('../public/dog-match/engine.mjs');
+ const p={...defaults,fluff:'fluffy'},history=[];
+ let queue=discoveryQueue(p,history);
+ const expected=breeds.filter(b=>fluffLevels[b.id]>=2).length;
+ while(queue.length){const current=queue[0];assert(fluffLevels[current.breed.id]>=2);history.push({id:current.breed.id,choice:'pass'});queue=discoveryQueue(p,history);}
+ assert.equal(history.length,expected);
+ assert(discoveryQueue({...p,fluff:'sleek'},history).some(x=>x.breed.id==='greyhound'));
 });

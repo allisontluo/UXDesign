@@ -175,3 +175,46 @@ Seven automated tests pass, including catalog size/IDs, photo availability, coat
 values, finite recommendation scores, and continuation from an old six-dog history.
 Browser checks verified all eleven cards, comparisons of the new types, persisted
 comparison choices, and the user's Aussiedoodle photo loading correctly.
+
+51-TYPE CATALOG, COAT FILTER FIX, AND HOUSEHOLD QUESTIONS
+User: “greyhounds are not fluffy though, and have at least 50 types and maybe more questions”
+The screenshot exposed a real inconsistency: coat choice affected discovery order
+but was omitted from the live shortlist's score/rank path. Greyhound's stored coat
+fullness was already 0 (sleek), but it could still appear near the top of that list.
+Fixed by including coat preference in profile scoring and applying the same coat
+filter to the live shortlist and discovery queue. Fluffy-only requires fullness
+2–3; shorter-only requires 0–1. Each preview row now shows its coat label. The full
+catalog remains browsable with coat mismatches explicitly marked. Comparisons
+include a coat fullness metric, so a Greyhound displays 0/3 rather than fluffy.
+
+Added 40 representative profiles in catalog.mjs, bringing the total to 51 types,
+including recognized Poodle size varieties and the existing mixes. Each has a
+bundled photo and individual breed reference. Existing favorites, profile answers,
+and swipe decisions migrate without deletion. The user's Aussiedoodle photo stays
+unchanged. Added a search field for the full catalog, including whitespace-insensitive
+queries such as “golden doodle”.
+
+Five new questions in a fourth step ask about children, other pets, barking,
+visitors, and drool. Neutral answers add no extra weighting; selected needs add
+normalized score dimensions. Household tendencies are authored teaching estimates,
+not AKC numerical ratings or guarantees about an individual dog's safety or behavior.
+The interface explains supervised introductions and individual assessment.
+Discovery now combines overall profile fit (85%) with learned trait similarity
+(15%). Its progress and completion state use the current matching coat set.
+Changing coat filters preserves decisions and exposes unseen matching dogs.
+
+Sources: verified all 40 additional AKC breed URLs return their matching breed
+pages. Commons image filenames were identified from breed pages, then license,
+author, and original source were retrieved through Commons. Photos were visually
+checked in two contact sheets; a long-haired Chihuahua photo was replaced with a
+correct short-haired example to match the profile. New reusable Commons photo
+credits join the original credits in photos/credits.json and the site's disclosure.
+
+Ten automated tests pass: score bounds, preference effects, care-plan cap,
+corrupt/old saved data, new catalog completeness/photos, household answer effects,
+fourth-step restoration, unique type IDs/names and household traits, and full-round
+coat-filter consistency. Browser checks confirmed fluffy-only excludes sleek
+profiles, five new household inputs change rankings, the fourth-step finish opens
+discovery, searches work across 51 types, Greyhound is labeled short/sleek with a
+coat mismatch in the all-types catalog, and switching to shorter coats changes the
+shortlist accordingly. No runtime AI or backend was added.
