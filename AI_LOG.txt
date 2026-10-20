@@ -138,3 +138,9 @@ selection was removed; new comparisons appear when the user chooses breeds.
 CSS, app, and engine URLs use a new version to avoid cached old layouts/scripts.
 Browser checks verified the incomplete-quiz redirect, the hidden swipe controls
 before completion, and the completed quiz revealing discovery below it.
+
+COMPARISON PHOTOS FOLLOW-UP
+User: “include photos of them” with screenshots of the comparison chart.
+Added each selected breed's bundled photo beside its name in every comparison
+metric. Mobile chart rows place the photo/name above the bar to preserve space.
+Existing Wikimedia photo attributions apply. Updated CSS/app URL versions.

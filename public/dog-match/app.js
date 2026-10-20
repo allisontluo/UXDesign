@@ -27,7 +27,7 @@ function render(){const p=state.profile;const ranked=rankBreeds(p);$('exercise-v
 function renderChart(ranked=rankBreeds(state.profile)){
  $('comparison').hidden=!state.completed||state.compare.length===0;
  const metric=$('metric').value;const max={score:100,exercise:150,grooming:3,training:3}[metric];
- $('chart').innerHTML=state.compare.map(id=>ranked.find(x=>x.breed.id===id)).filter(Boolean).map(({breed:b,score})=>{const value=metric==='score'?score:b[metric];const suffix=metric==='score'?'%':metric==='exercise'?' min':' / 3';return `<div class="chart-row"><strong>${b.name}</strong><div class="track" aria-hidden="true"><div class="bar" style="width:${value/max*100}%"></div></div><span>${value}${suffix}</span></div>`;}).join('');
+ $('chart').innerHTML=state.compare.map(id=>ranked.find(x=>x.breed.id===id)).filter(Boolean).map(({breed:b,score})=>{const value=metric==='score'?score:b[metric];const suffix=metric==='score'?'%':metric==='exercise'?' min':' / 3';return `<div class="chart-row"><div class="chart-dog"><img src="photos/${b.id}.jpg" alt="${b.name} breed example" width="80" height="64"><strong>${b.name}</strong></div><div class="track" aria-hidden="true"><div class="bar" style="width:${value/max*100}%"></div></div><span>${value}${suffix}</span></div>`;}).join('');
 }
 form.addEventListener('input',updateProfile);
 $('next').addEventListener('click',()=>{state.step=Math.min(2,state.step+1);persist();showStep(true);});
