@@ -1,4 +1,4 @@
-import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels} from './engine.mjs';
+import {breeds,defaults,normalizeProfile,needsCarePlan,rankBreeds,restoreState,discoveryQueue,fluffLevels} from './engine.mjs?v=2';
 const $=id=>document.getElementById(id);
 const key='uxdesign-pawfect-match-v1';
 let state={version:1,profile:{...defaults},step:0,completed:false,favorites:[],compare:[],history:[]};

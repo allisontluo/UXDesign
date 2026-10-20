@@ -114,3 +114,7 @@ history migration. Browser verification covered fluffy preference changing the
 first dog, liking changing the next dog, reload persistence, left-arrow pass, undo,
 actual photo dragging to like, all-six completion, restart, and 390px layout with
 no horizontal overflow. Original lifestyle quiz and comparison remain available.
+
+Deployment refinement: a live browser refresh fetched the new HTML while retaining
+older cached JavaScript, leaving the new swipe region empty. Versioned CSS, app,
+and engine module URLs now ensure the updated HTML loads matching assets.
