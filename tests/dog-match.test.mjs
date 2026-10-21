@@ -103,12 +103,13 @@ test('coat filter stays consistent throughout a whole swipe round and can be cha
  assert(discoveryQueue({...p,fluff:'sleek'},history).some(x=>x.breed.id==='greyhound'));
 });
 
-test('every dog type has a stable, complete fictional profile',async()=>{
+test('every dog type has a complete profile without invented owner-provided facts',async()=>{
  const {dogProfiles}=await import('../public/dog-match/profiles.mjs');
  assert.equal(Object.keys(dogProfiles).length,breeds.length);
  for(const b of breeds){
-  const dog=dogProfiles[b.id];assert(dog&&dog.name&&dog.likes,b.id);
-  assert(Number.isInteger(dog.age)&&dog.age>0&&dog.age<25);
+  const dog=dogProfiles[b.id];assert(dog&&dog.name,b.id);
+  if(dog.ownerProvided){assert.equal(dog.name,'Winnie');assert.equal(dog.sex,'Female');assert.equal(dog.age,null);assert.equal(dog.likes,null);}
+  else {assert(dog.likes);assert(Number.isInteger(dog.age)&&dog.age>0&&dog.age<25);}
  }
  assert.equal(dogProfiles.golden.name,'Ginger');assert.equal(dogProfiles.golden.age,5);
  assert(dogProfiles.golden.likes.toLowerCase().includes('fetch'));

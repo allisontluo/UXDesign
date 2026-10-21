@@ -85,3 +85,12 @@ or verified facts about the pictured dogs. Scores still use dog-type estimates.
 Each card has About details, save/remove, and comparison controls. With no likes,
 the grid shows three suggestions that respect the coat filter. My matches
 navigation and a link beneath swiping make the section easy to find.
+
+## Winnie, themes, and match charts
+
+Winnie's owner supplied her name and female gender. Her age and interests are left
+unspecified. Other personal profiles remain illustrative. The theme button saves
+a light/dark preference separately from quiz data, falling back to the system
+preference when unset. Circular charts show profile-fit scores and remaining
+difference, with readable percentages and accessible labels; other comparison
+metrics retain bars. Shortened copy keeps detailed methodology in the disclosure.

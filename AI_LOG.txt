@@ -256,3 +256,33 @@ warning now appears above profiles. Eleven automated tests pass, including profi
 coverage and the requested Ginger/age-5/fetch example. Browser checks verified
 saving Ginger makes her card appear, About details open, matching comparison
 checkboxes stay synchronized, and liked profiles survive reload.
+
+WINNIE, SHORTER COPY, THEMES, AND MATCH CHARTS
+User updates: “this is winnie and she is a girl”; “maybe try to reduce words a
+little on the website it looks a little crowded”; “have a button for light and
+dark mode”; “and maybe have like a pie chart with how much you match for each dog
+instead of just a percentage”.
+
+Updated the Aussiedoodle identity to Winnie, Female. Removed her invented age and
+interests rather than presenting them as owner-confirmed facts. Swipe and saved
+profile cards share her corrected identity. Winnie’s About text states only the
+known owner-provided identity, then distinguishes the representative type data.
+Other dogs retain clearly labeled fictional example details. Shortened labels,
+repeat explanations, match counters, completion text, and About paragraphs while
+retaining full methodology and source/license disclosures.
+
+Added an accessible Light mode/Dark mode button. It defaults to the system theme
+when no selection is saved and remembers a chosen theme under a separate local
+storage key. Dark colors cover controls, cards, text, photos' background frames,
+notices, and charts. Added circular match charts on saved profiles, catalog cards,
+preview rows, swipe cards, and score comparisons. The filled segment shows the
+profile-fit score; the pale segment shows the remaining difference. Percentages
+remain inside for precision and screen-reader labels state both values. Non-score
+comparisons retain their correct numeric bar scales.
+
+Eleven automated tests pass, including a check that Winnie's real name/gender do
+not acquire fictional ages/interests. Browser checks verified Winnie/Female with
+no age or interests, four rendered saved-profile rings, accessible chart labels,
+About text, theme switching and persistence after reload, no console errors, and
+390px layout without horizontal overflow. The temporary viewport override was
+reset after responsive checks. The user-provided photo remains unchanged.
